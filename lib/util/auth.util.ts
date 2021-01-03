@@ -8,7 +8,7 @@ import { ErrorMessage } from '../constant';
 
 export class AuthUtil {
   constructor(
-    private readonly tokenUtil: TokenUtil = new TokenUtil(),
+    private readonly tokenUtil: TokenUtil,
     private adminRoles: Array<UserRole> = [UserRole.ADMIN]
   ) {}
 

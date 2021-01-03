@@ -9,29 +9,31 @@ import { PostgreSqlProvider } from './provider/postgre.provider';
 import { TokenUtil } from './util/token.util';
 import { UserRole } from './enum/user-role.enum';
 import { ErrorMessage } from './constant';
+import { TokenArgs } from './interface/token-args.interface';
 
 export const context = async (
   req: any,
-  mongodb_provider: MongoDbProvider,
-  postgresql_provider: PostgreSqlProvider,
-  publicPaths: string[],
-  adminPaths: string[]
+  tokenArgs: TokenArgs,
+  publicPaths?: string[],
+  adminPaths?: string[],
+  mongodb_provider?: MongoDbProvider,
+  postgresql_provider?: PostgreSqlProvider
 ) => {
-  const tokenUtil = new TokenUtil();
+  const tokenUtil = new TokenUtil(tokenArgs);
   const authUtil = new AuthUtil(tokenUtil);
 
   let currentUser: any;
   let publicPath = false;
   let adminPath = false;
 
-  publicPaths.forEach((p) => {
+  publicPaths?.forEach((p) => {
     if (req.path === p) {
       publicPath = true;
       return;
     }
   });
 
-  adminPaths.forEach((p) => {
+  adminPaths?.forEach((p) => {
     if (req.path === p) {
       adminPath = true;
       return;

@@ -4,18 +4,11 @@
 
 import jwt from 'jsonwebtoken';
 import { ResponseCode, TokenDefaults } from '../constant';
+import { TokenArgs } from '../interface/token-args.interface';
 import { User } from '../interface/user.interface';
 
 export class TokenUtil {
-  constructor(
-    private accessTokenSecret?: string,
-    private accessTokenExpire?: string,
-    private refreshTokenSecret?: string,
-    private refreshTokenExpire?: string,
-    private verificationTokenSecret?: string,
-    private resetPasswordTokenSecret?: string,
-    private resetPasswordTokenExpire?: string
-  ) {}
+  constructor(private args: TokenArgs) {}
   /**
    * generates access token
    * @param user user
@@ -26,9 +19,9 @@ export class TokenUtil {
         username: user.username,
         role: user.role,
       },
-      this.accessTokenSecret || '',
+      this.args.accessTokenSecret || '',
       {
-        expiresIn: this.accessTokenExpire || TokenDefaults.expire.accessToken,
+        expiresIn: this.args.accessTokenExpire || TokenDefaults.expire.accessToken,
       }
     );
   };
@@ -43,9 +36,9 @@ export class TokenUtil {
         username: user.username,
         role: user.role,
       },
-      this.refreshTokenSecret || '',
+      this.args.refreshTokenSecret || '',
       {
-        expiresIn: this.refreshTokenExpire || TokenDefaults.expire.refreshToken,
+        expiresIn: this.args.refreshTokenExpire || TokenDefaults.expire.refreshToken,
       }
     );
     const { exp } = jwt.decode(token) as any;
@@ -59,7 +52,7 @@ export class TokenUtil {
   generateVerificationToken = (user: User) => {
     return jwt.sign(
       { username: user.username },
-      this.verificationTokenSecret || ''
+      this.args.verificationTokenSecret || ''
     );
   };
 
@@ -70,10 +63,10 @@ export class TokenUtil {
   generatePasswordResetToken = (user: User) => {
     return jwt.sign(
       { username: user.username },
-      this.resetPasswordTokenSecret + user.password,
+      this.args.resetPasswordTokenSecret + user.password,
       {
         expiresIn:
-          this.resetPasswordTokenExpire ||
+          this.args.resetPasswordTokenExpire ||
           TokenDefaults.expire.resetPasswordToken,
       }
     );
@@ -85,7 +78,7 @@ export class TokenUtil {
    */
   verifyAccessToken = (token: string) => {
     try {
-      return jwt.verify(token, this.accessTokenSecret || '');
+      return jwt.verify(token, this.args.accessTokenSecret || '');
     } catch (e) {
       console.error(e);
       if (e.name === 'JsonWebTokenError') {
@@ -103,7 +96,7 @@ export class TokenUtil {
    */
   verifyRefreshToken = (token: string) => {
     try {
-      return jwt.verify(token, this.refreshTokenSecret || '');
+      return jwt.verify(token, this.args.refreshTokenSecret || '');
     } catch (e) {
       console.error(e);
       if (e.name === 'JsonWebTokenError') {
@@ -121,7 +114,7 @@ export class TokenUtil {
    */
   verifyVerificationToken = (token: string) => {
     try {
-      return jwt.verify(token, this.verificationTokenSecret || '');
+      return jwt.verify(token, this.args.verificationTokenSecret || '');
     } catch (e) {
       console.error(e);
       if (e.name === 'JsonWebTokenError') {
@@ -140,7 +133,7 @@ export class TokenUtil {
    */
   verifyPasswordResetToken = (token: string, currentPassword: string) => {
     try {
-      return jwt.verify(token, this.resetPasswordTokenSecret + currentPassword);
+      return jwt.verify(token, this.args.resetPasswordTokenSecret + currentPassword);
     } catch (e) {
       console.error(e);
       if (e.name === 'JsonWebTokenError') {
