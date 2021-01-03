@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "Open Template Hub Servers Common Library",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "keywords": [
     "Express generator",
