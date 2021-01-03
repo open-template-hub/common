@@ -3,11 +3,11 @@
  */
 
 import mongoose, { Connection } from 'mongoose';
+import { EnvArgs } from '../interface/environment.interface';
 
 export class MongoDbProvider {
   constructor(
-    private uri: string,
-    private poolLimit: number = 1,
+    private args: EnvArgs,
     private connection: Connection = mongoose.createConnection()
   ) {}
 
@@ -33,7 +33,7 @@ export class MongoDbProvider {
 
     // create connection pool
     this.connection = await mongoose
-      .createConnection(this.uri, {
+      .createConnection(this.args.mongoDbUri as string, {
         bufferCommands: false,
         bufferMaxEntries: 0,
         useNewUrlParser: true,
@@ -41,7 +41,9 @@ export class MongoDbProvider {
         useCreateIndex: true,
         useFindAndModify: false,
         keepAlive: true,
-        poolSize: this.poolLimit,
+        poolSize: this.args.mongoDbConnectionLimit
+          ? parseInt(this.args.mongoDbConnectionLimit)
+          : 1,
         socketTimeoutMS: 0,
       })
       .catch((error) => {

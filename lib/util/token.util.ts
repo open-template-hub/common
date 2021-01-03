@@ -4,11 +4,11 @@
 
 import jwt from 'jsonwebtoken';
 import { ResponseCode, TokenDefaults } from '../constant';
-import { TokenArgs } from '../interface/token-args.interface';
+import { EnvArgs } from '../interface/environment.interface';
 import { User } from '../interface/user.interface';
 
 export class TokenUtil {
-  constructor(private args: TokenArgs) {}
+  constructor(private args: EnvArgs) {}
   /**
    * generates access token
    * @param user user

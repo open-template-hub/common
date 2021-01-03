@@ -10,6 +10,7 @@ export * from './lib/enum/user-role.enum';
 // interface
 export * from './lib/interface/context.interface';
 export * from './lib/interface/user.interface';
+export * from './lib/interface/environment.interface';
 
 // provider
 export * from './lib/provider/mongo.provider';

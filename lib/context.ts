@@ -9,17 +9,17 @@ import { PostgreSqlProvider } from './provider/postgre.provider';
 import { TokenUtil } from './util/token.util';
 import { UserRole } from './enum/user-role.enum';
 import { ErrorMessage } from './constant';
-import { TokenArgs } from './interface/token-args.interface';
+import { EnvArgs } from './interface/environment.interface';
 
 export const context = async (
   req: any,
-  tokenArgs: TokenArgs,
+  envArgs: EnvArgs,
   publicPaths?: string[],
   adminPaths?: string[],
   mongodb_provider?: MongoDbProvider,
   postgresql_provider?: PostgreSqlProvider
 ) => {
-  const tokenUtil = new TokenUtil(tokenArgs);
+  const tokenUtil = new TokenUtil(envArgs);
   const authUtil = new AuthUtil(tokenUtil);
 
   let currentUser: any;

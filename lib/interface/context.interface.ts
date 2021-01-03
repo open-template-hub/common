@@ -1,5 +1,5 @@
 /**
- * @description holds context interface 
+ * @description holds context interface
  */
 
 import { UserRole } from '../enum/user-role.enum';
