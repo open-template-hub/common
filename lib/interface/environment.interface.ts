@@ -1,8 +1,8 @@
 /**
- * @description holds Token Args interface
+ * @description holds Environment Args interface
  */
 
-export interface TokenArgs {
+export interface EnvArgs {
   accessTokenSecret?: string;
   accessTokenExpire?: string;
   refreshTokenSecret?: string;
@@ -10,4 +10,9 @@ export interface TokenArgs {
   verificationTokenSecret?: string;
   resetPasswordTokenSecret?: string;
   resetPasswordTokenExpire?: string;
+  responseEncryptionSecret?: string;
+  mongoDbUri?: string;
+  mongoDbConnectionLimit?: string;
+  postgreSqlUri?: string;
+  postgreSqlConnectionLimit?: string;
 }

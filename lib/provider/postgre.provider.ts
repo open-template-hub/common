@@ -3,14 +3,14 @@
  */
 
 import { Pool, QueryResult } from 'pg';
+import { EnvArgs } from '../interface/environment.interface';
 import { BuilderUtil } from '../util/builder.util';
 import { DebugLogUtil } from '../util/debug-log.util';
 
 export class PostgreSqlProvider {
   constructor(
-    private databaseUrl: string,
+    private args: EnvArgs,
     private applicationName: string,
-    private currentPoolLimit: number = 1,
     private connectionPool: Pool = new Pool(),
     private debugLogUtil: DebugLogUtil = new DebugLogUtil(),
     private preloadTablesTemplatePath: string = './assets/sql/preload.tables.psql',
@@ -23,9 +23,11 @@ export class PostgreSqlProvider {
   preload = async () => {
     // Creating Connection Pool
     this.connectionPool = new Pool({
-      connectionString: this.databaseUrl,
+      connectionString: this.args.postgreSqlUri,
       application_name: this.applicationName,
-      max: this.currentPoolLimit,
+      max: this.args.postgreSqlConnectionLimit
+        ? parseInt(this.args.postgreSqlConnectionLimit)
+        : 1,
       ssl: {
         rejectUnauthorized: false,
       },
@@ -34,7 +36,7 @@ export class PostgreSqlProvider {
     let queries = this.builder.buildTemplateFromFile(
       this.preloadTablesTemplatePath
     );
-    
+
     return await this.query(queries, []);
   };
 

@@ -4,22 +4,27 @@
 
 import CryptoJS from 'crypto-js';
 import crypto from 'crypto';
+import { EnvArgs } from '../interface/environment.interface';
 
 export class EncryptionUtil {
-  constructor(private responseEncryptionSecret: string) {}
+  constructor(private args: EnvArgs) {}
 
   /**
    * encrpyts response
    * @param args arguments
    */
   encrypt = (args: IArguments) => {
-    if (args === undefined || args === null || !this.responseEncryptionSecret)
+    if (
+      args === undefined ||
+      args === null ||
+      !this.args.responseEncryptionSecret
+    )
       return args;
 
     for (let i = 0; i < args.length; i++) {
       let encrypted = CryptoJS.RC4.encrypt(
         args[i].toString(),
-        this.responseEncryptionSecret
+        this.args.responseEncryptionSecret
       );
       args[i] = JSON.stringify(encrypted);
     }
@@ -32,13 +37,13 @@ export class EncryptionUtil {
    * @param encrypted_text
    */
   decrypt = (encrypted_text: string) => {
-    if (!encrypted_text || !this.responseEncryptionSecret) {
+    if (!encrypted_text || !this.args.responseEncryptionSecret) {
       return encrypted_text;
     }
 
     const decrypted_text = CryptoJS.RC4.decrypt(
       encrypted_text,
-      this.responseEncryptionSecret
+      this.args.responseEncryptionSecret
     ).toString(CryptoJS.enc.Utf8);
 
     return JSON.parse(decrypted_text);
