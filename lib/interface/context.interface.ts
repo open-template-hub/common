@@ -13,4 +13,5 @@ export interface Context {
   isAdmin: boolean;
   username: string;
   serviceKey: string;
+  token: string;
 }

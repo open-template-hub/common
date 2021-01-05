@@ -25,3 +25,5 @@ export * from './lib/util/error-handler.util';
 export * from './lib/util/preload.util';
 export * from './lib/util/token.util';
 export * from './lib/util/usage.util';
+export * from './lib/util/mail.util';
+export * from './lib/util/parser.util';

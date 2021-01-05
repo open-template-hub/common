@@ -15,4 +15,13 @@ export interface EnvArgs {
   mongoDbConnectionLimit?: string;
   postgreSqlUri?: string;
   postgreSqlConnectionLimit?: string;
+  mailHost?: string;
+  mailPort?: string;
+  mailUsername?: string;
+  mailPassword?: string;
+  mailServerDisabled?: boolean;
+  regression?: boolean;
+  clientUrl?: string;
+  clientResetPasswordUrl?: string;
+  clientVerificationSuccessUrl?: string;
 }
