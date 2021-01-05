@@ -47,6 +47,7 @@ export const context = async (
   const serviceKey = req.body.key;
 
   const role = currentUser ? (currentUser.role as UserRole) : ('' as UserRole);
+  const token = currentUser ? currentUser.token : '';
   const isAdmin = authUtil.isAdmin(role);
 
   if (adminPath && !isAdmin) {
@@ -60,5 +61,6 @@ export const context = async (
     role,
     isAdmin,
     serviceKey,
+    token,
   } as Context;
 };

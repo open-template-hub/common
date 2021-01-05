@@ -19,19 +19,22 @@ export class AuthUtil {
    */
   getCurrentUser = async (req: { headers: { authorization: string } }) => {
     let authToken = '';
-    let currentUser = null;
+    let user = null;
 
     const authTokenHeader = req.headers.authorization;
     const BEARER = 'Bearer ';
 
     if (authTokenHeader && authTokenHeader.startsWith(BEARER)) {
       authToken = authTokenHeader.slice(BEARER.length);
-      currentUser = this.tokenUtil.verifyAccessToken(authToken);
+      user = this.tokenUtil.verifyAccessToken(authToken);
     }
 
-    if (!currentUser) {
+    if (!user) {
       throw new Error(ErrorMessage.FORBIDDEN);
     }
+
+    let currentUser: any = user;
+    currentUser.token = authToken;
 
     return currentUser;
   };
