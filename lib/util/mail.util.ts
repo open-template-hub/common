@@ -10,19 +10,12 @@ import { DebugLogUtil } from './debug-log.util';
 
 export class MailUtil {
   private readonly config: any;
-  private readonly templates: any;
 
   constructor(
     private args: EnvArgs,
     private debugLogUtil = new DebugLogUtil(),
     private builder = new BuilderUtil()
   ) {
-    this.templates = {
-      verifyAccount:
-        './assets/mail-templates/verify-account-mail-template.html',
-      forgetPassword:
-        './assets/mail-templates/forget-password-mail-template.html',
-    };
     this.config = {
       host: this.args.mailHost,
       port: this.args.mailPort,
@@ -50,7 +43,7 @@ export class MailUtil {
       url,
       user,
       'Account verification',
-      this.templates.verifyAccount
+      this.args.verifyAccountMailTemplatePath || ''
     );
   };
 
@@ -75,7 +68,7 @@ export class MailUtil {
       url,
       user,
       'Forget password',
-      this.templates.forgetPassword
+      this.args.resetPasswordMailTemplatePath || ''
     );
   };
 
@@ -94,6 +87,7 @@ export class MailUtil {
       return;
     }
 
+    console.log('> MailUtil::send => Create Transport: ', url);
     let transporter = nodemailer.createTransport(this.config);
 
     let params = new Map<string, string>();
@@ -101,6 +95,8 @@ export class MailUtil {
     params.set('${username}', user.username);
 
     let mailBody = this.builder.buildTemplateFromFile(template, params);
+
+    console.log('> MailUtil::send => Sending Email: ', user.username);
 
     await transporter.sendMail({
       from: this.args.mailUsername,
