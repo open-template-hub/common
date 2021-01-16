@@ -4,7 +4,7 @@
 
 import jwt from 'jsonwebtoken';
 import { ResponseCode, TokenDefaults } from '../constant';
-import { EnvArgs } from '../interface/environment.interface';
+import { EnvArgs } from '../interface/environment-args.interface';
 import { User } from '../interface/user.interface';
 
 export class TokenUtil {

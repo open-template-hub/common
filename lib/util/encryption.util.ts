@@ -4,7 +4,7 @@
 
 import CryptoJS from 'crypto-js';
 import crypto from 'crypto';
-import { EnvArgs } from '../interface/environment.interface';
+import { EnvArgs } from '../interface/environment-args.interface';
 
 export class EncryptionUtil {
   constructor(private args: EnvArgs) {}

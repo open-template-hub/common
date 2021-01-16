@@ -3,7 +3,7 @@
  */
 
 import { Pool, QueryResult } from 'pg';
-import { EnvArgs } from '../interface/environment.interface';
+import { EnvArgs } from '../interface/environment-args.interface';
 import { BuilderUtil } from '../util/builder.util';
 import { DebugLogUtil } from '../util/debug-log.util';
 

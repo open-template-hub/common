@@ -11,7 +11,8 @@ export * from './lib/enum/log-severity.enum';
 // interface
 export * from './lib/interface/context.interface';
 export * from './lib/interface/user.interface';
-export * from './lib/interface/environment.interface';
+export * from './lib/interface/environment-args.interface';
+export * from './lib/interface/log-args.interface';
 
 // provider
 export * from './lib/provider/mongo.provider';

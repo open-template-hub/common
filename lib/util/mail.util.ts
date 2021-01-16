@@ -3,7 +3,7 @@
  */
 
 import nodemailer from 'nodemailer';
-import { EnvArgs } from '../interface/environment.interface';
+import { EnvArgs } from '../interface/environment-args.interface';
 import { User } from '../interface/user.interface';
 import { BuilderUtil } from './builder.util';
 import { DebugLogUtil } from './debug-log.util';
