@@ -40,7 +40,8 @@ class LoggerUtil {
       );
     } catch (e) {
       console.log(
-        `${LogSeverity.MINOR} | LoggerUtil::log => Unexpected error occurred while logging. Error: ${e}`
+        `${LogSeverity.MINOR} | LoggerUtil::log => Unexpected error occurred while logging: `,
+        e
       );
     }
   };
