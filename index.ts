@@ -6,6 +6,7 @@ export * from './lib/context';
 
 // enum
 export * from './lib/enum/user-role.enum';
+export * from './lib/enum/log-severity.enum';
 
 // interface
 export * from './lib/interface/context.interface';
