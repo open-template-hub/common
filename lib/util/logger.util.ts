@@ -27,7 +27,7 @@ class LoggerUtil {
         }
       }
 
-      const objType = (typeof obj).toString();
+      const objType = obj.constructor.name;
 
       console.log(`${severity} | ${objType}::${caller} => ${message}`, args);
     } catch (e) {
