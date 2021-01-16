@@ -5,7 +5,7 @@
 import { LogSeverity } from '../enum/log-severity.enum';
 
 class LoggerUtil {
-  log = (obj: any, severity: LogSeverity, message: string) => {
+  log = (obj: any, severity: LogSeverity, message: string, args: any) => {
     try {
       var caller = '';
 
@@ -23,7 +23,7 @@ class LoggerUtil {
 
       const objType = (typeof obj).toString();
 
-      console.log(`${severity} | ${objType}::${caller} => ${message}`);
+      console.log(`${severity} | ${objType}::${caller} => ${message}`, args);
     } catch (e) {
       console.log(
         `${LogSeverity.MINOR} | LoggerUtil::log => Unexpected error occurred while logging. Error: ${e}`
