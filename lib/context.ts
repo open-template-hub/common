@@ -9,7 +9,7 @@ import { PostgreSqlProvider } from './provider/postgre.provider';
 import { TokenUtil } from './util/token.util';
 import { UserRole } from './enum/user-role.enum';
 import { ErrorMessage } from './constant';
-import { EnvArgs } from './interface/environment.interface';
+import { EnvArgs } from './interface/environment-args.interface';
 
 export const context = async (
   req: any,

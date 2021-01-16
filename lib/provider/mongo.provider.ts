@@ -3,7 +3,7 @@
  */
 
 import mongoose, { Connection } from 'mongoose';
-import { EnvArgs } from '../interface/environment.interface';
+import { EnvArgs } from '../interface/environment-args.interface';
 
 export class MongoDbProvider {
   constructor(

@@ -3,27 +3,16 @@
  */
 
 import { LogSeverity } from '../enum/log-severity.enum';
+import { LogArgs } from '../interface/log-args.interface';
 
 class LoggerUtil {
   /**
    * Log
-   * @param severity log severity
-   * @param message log message
-   * @param args log arguments
-   * @param callerInstance log caller instance if exist
-   * @param callerInstanceName log caller instance name, if you want to pass specific caller instance name
-   * @param callerMethodName log caller method name, if you want to pass specific caller method name
+   * @param args log args
    */
-  log = (
-    severity: LogSeverity,
-    message: string,
-    args?: any,
-    callerInstance?: any,
-    callerInstanceName?: string,
-    callerMethod?: string
-  ) => {
+  log = (args: LogArgs) => {
     try {
-      if (!callerMethod) {
+      if (!args.callerMethod) {
         try {
           throw new Error();
         } catch (e) {
@@ -32,21 +21,21 @@ class LoggerUtil {
             m;
           re.exec(st), (m = re.exec(st));
           if (m) {
-            callerMethod = m[1] || m[2];
+            args.callerMethod = m[1] || m[2];
           } else {
-            callerMethod = 'NonSpecifiedMethod'
+            args.callerMethod = 'NonSpecifiedMethod';
           }
         }
       }
 
-      const callerType = callerInstanceName
-        ? callerInstanceName
-        : callerInstance
-        ? callerInstance.constructor.name
+      const callerType = args.callerInstanceName
+        ? args.callerInstanceName
+        : args.callerInstance
+        ? args.callerInstance.constructor.name
         : 'NonSpecifiedClass';
 
       console.log(
-        `${severity} | ${callerType}::${callerMethod} => ${message}`,
+        `${args.severity} | ${callerType}::${args.callerMethod} => ${args.message}`,
         args
       );
     } catch (e) {
