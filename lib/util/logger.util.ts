@@ -9,7 +9,7 @@ class LoggerUtil {
     obj: any,
     severity: LogSeverity,
     message: string,
-    args: any,
+    args?: any,
     caller?: string
   ) => {
     try {
