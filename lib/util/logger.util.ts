@@ -5,19 +5,25 @@
 import { LogSeverity } from '../enum/log-severity.enum';
 
 class LoggerUtil {
-  log = (obj: any, severity: LogSeverity, message: string, args: any) => {
+  log = (
+    obj: any,
+    severity: LogSeverity,
+    message: string,
+    args: any,
+    caller?: string
+  ) => {
     try {
-      var caller = '';
-
-      try {
-        throw new Error();
-      } catch (e) {
-        var re = /(\w+)@|at (\w+) \(/g,
-          st = e.stack,
-          m;
-        re.exec(st), (m = re.exec(st));
-        if (m) {
-          caller = m[1] || m[2];
+      if (!caller) {
+        try {
+          throw new Error();
+        } catch (e) {
+          var re = /(\w+)@|at (\w+) \(/g,
+            st = e.stack,
+            m;
+          re.exec(st), (m = re.exec(st));
+          if (m) {
+            caller = m[1] || m[2];
+          }
         }
       }
 
