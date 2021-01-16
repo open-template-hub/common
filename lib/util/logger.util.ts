@@ -36,7 +36,7 @@ class LoggerUtil {
 
       console.log(
         `${args.severity} | ${callerType}::${args.callerMethod} => ${args.message}`,
-        args
+        args.args
       );
     } catch (e) {
       console.log(
