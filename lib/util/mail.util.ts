@@ -92,6 +92,7 @@ export class MailUtil {
 
     let params = new Map<string, string>();
     params.set('${url}', url);
+    params.set('${url2}', url);
     params.set('${username}', user.username);
 
     let mailBody = this.builder.buildTemplateFromFile(template, params);
