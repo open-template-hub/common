@@ -30,8 +30,7 @@ jobs:
        - run: npm publish --access public
          env:
            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-   publish-gpr:
+  publish-gpr:
      name: "Publish to GitHub"
      runs-on: ubuntu-latest
      steps:
