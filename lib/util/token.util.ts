@@ -103,6 +103,7 @@ export class TokenUtil {
         e.responseCode = ResponseCode.FORBIDDEN;
       } else if (e.name === 'TokenExpiredError') {
         e.responseCode = ResponseCode.UNAUTHORIZED;
+        e.message = 'refresh token expired'
       }
       throw e;
     }
