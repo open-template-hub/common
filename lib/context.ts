@@ -40,8 +40,12 @@ export const context = async (
     }
   });
 
-  if (!publicPath) {
+  try {
     currentUser = await authUtil.getCurrentUser(req);
+  } catch (e) {
+    if (!publicPath) {
+      throw e;
+    }
   }
 
   const serviceKey = req.body.key;
