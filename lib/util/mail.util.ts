@@ -19,7 +19,7 @@ export class MailUtil {
     this.config = {
       host: this.args.mailHost,
       port: this.args.mailPort,
-      secure: this.args.mailPort === '465' ? true : false,
+      secure: true,
       auth: {
         user: this.args.mailUsername,
         pass: this.args.mailPassword,
