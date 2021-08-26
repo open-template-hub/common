@@ -8,7 +8,6 @@ export class UsageUtil {
    * @returns memory usage
    */
   getMemoryUsage = () => {
-    const used = process.memoryUsage().heapUsed / 1024 / 1024;
-    return used;
+    return process.memoryUsage().heapUsed / 1024 / 1024;
   };
 }

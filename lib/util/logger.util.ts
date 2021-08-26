@@ -28,11 +28,14 @@ class LoggerUtil {
         }
       }
 
-      const callerType = args.callerInstanceName
-          ? args.callerInstanceName
-          : args.callerInstance
-              ? args.callerInstance.constructor.name
-              : 'NonSpecifiedClass';
+      let callerType;
+      if ( args.callerInstanceName ) {
+        callerType = args.callerInstanceName;
+      } else if ( args.callerInstance ) {
+        callerType = args.callerInstance.constructor.name;
+      } else {
+        callerType = 'NonSpecifiedClass';
+      }
 
       console.log(
           `${ args.severity } | ${ callerType }::${ args.callerMethod } => ${ args.message }`,

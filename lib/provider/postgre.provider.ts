@@ -38,7 +38,7 @@ export class PostgreSqlProvider {
         this.preloadTablesTemplatePath
     );
 
-    return await this.query( queries, [] );
+    return this.query( queries, [] );
   };
 
   /**
