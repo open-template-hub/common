@@ -9,22 +9,20 @@ import { BuilderUtil } from './builder.util';
 import { DebugLogUtil } from './debug-log.util';
 
 export class MailUtil {
-  private readonly config: any;
+  private readonly host: string;
+  private readonly port: number;
+  private readonly user: string;
+  private readonly pass: string;
 
   constructor(
       private args: EnvArgs,
       private debugLogUtil = new DebugLogUtil(),
       private builder = new BuilderUtil()
   ) {
-    this.config = {
-      host: this.args.mailHost,
-      port: this.args.mailPort,
-      secure: this.args.mailPort === '465' ? true : false,
-      auth: {
-        user: this.args.mailUsername,
-        pass: this.args.mailPassword,
-      },
-    };
+    this.host = this.args.mailHost ? this.args.mailHost : '';
+    this.port = this.args.mailPort ? parseInt(this.args.mailPort) : 465 // Default;
+    this.user = this.args.mailUsername ? this.args.mailUsername : '';
+    this.pass = this.args.mailPassword ? this.args.mailPassword : '';
   }
 
   /**
@@ -88,7 +86,15 @@ export class MailUtil {
     }
 
     console.log( '> MailUtil::send => Create Transport: ', url );
-    let transporter = nodemailer.createTransport( this.config );
+    let transporter = nodemailer.createTransport( {
+      host: this.host,
+      port: this.port,
+      secure: true,
+      auth: {
+        user: this.user,
+        pass: this.pass
+      }
+    })
 
     let params = new Map<string, string>();
     params.set( '${url}', url );
