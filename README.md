@@ -5,15 +5,20 @@
 </p>
 
 <h1 align="center">
-Open Template Hub - Common Library
+Open Template Hub - Common Library v2
 </h1>
 
 [![Version](https://img.shields.io/npm/v/@open-template-hub/common?color=CB3837&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@open-template-hub/common)
 [![Downloads](https://img.shields.io/npm/dt/@open-template-hub/common?color=CB3837&logo=npm&style=for-the-badge)](https://www.npmjs.com/package/@open-template-hub/common)
+[![License](https://img.shields.io/github/license/open-template-hub/common?color=43b043&style=for-the-badge)](LICENSE)
+[![Issues](https://img.shields.io/github/issues/open-template-hub/common?color=43b043&style=for-the-badge)](https://github.com/open-template-hub/common/issues)
+[![PRCLosed](https://img.shields.io/github/issues-pr-closed-raw/open-template-hub/common?color=43b043&style=for-the-badge)](https://github.com/open-template-hub/common/pulls?q=is%3Apr+is%3Aclosed)
+[![LastCommit](https://img.shields.io/github/last-commit/open-template-hub/common?color=43b043&style=for-the-badge)](https://github.com/open-template-hub/common/commits/master)
+[![Release](https://img.shields.io/github/release/open-template-hub/common?include_prereleases&color=43b043&style=for-the-badge)](https://github.com/open-template-hub/common/releases)
 [![SonarCloud](https://img.shields.io/sonar/quality_gate/open-template-hub_common?server=https%3A%2F%2Fsonarcloud.io&label=Sonar%20Cloud&style=for-the-badge&logo=sonarcloud)](https://sonarcloud.io/dashboard?id=open-template-hub_common)
 [![BTC](https://img.shields.io/badge/Donate-BTC-ORANGE?color=F5922F&style=for-the-badge&logo=bitcoin)](https://commerce.coinbase.com/checkout/8313af5f-de48-498d-b2cb-d98819ca7d5e)
 
-This library contains common functionality for [Open Template Hub](https://github.com/open-template-hub) servers.
+This library contains common functionalities for Server Templates on [Open Template Hub](https://github.com/open-template-hub)
 
 ## About the NPM Package
 

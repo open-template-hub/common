@@ -1,47 +1,13 @@
 {
   "name": "@open-template-hub/common",
-  "version": "1.0.28",
-  "description": "Open Template Hub Servers Common Library",
+  "description": "This library contains common functionalities for Server Templates on Open Template Hub",
+  "version": "2.0.0",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
-  "keywords": [
-    "Express generator",
-    "server",
-    "rest",
-    "node",
-    "nodejs",
-    "typescript",
-    "mongo",
-    "mongodb",
-    "mongoose",
-    "postgre",
-    "postgresql",
-    "cli",
-    "auth",
-    "authentication",
-    "payment",
-    "basic",
-    "basic info",
-    "backend",
-    "template",
-    "server template",
-    "auth server example",
-    "auth server template",
-    "payment server example",
-    "payment server template",
-    "basic info server example",
-    "basic info  server template",
-    "Open Template Hub",
-    "Open Template Hub Library",
-    "Util",
-    "Utility",
-    "Token"
-  ],
-  "git repository": "https://github.com/open-template-hub/open-template-hub-common",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/open-template-hub/common.git"
+  "scripts": {
+    "start": "ts-node index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@types/crypto-js": "^4.0.1",
@@ -66,12 +32,31 @@
     "@types/object-path": "^0.11.0",
     "@types/pg": "^7.14.7"
   },
-  "scripts": {
-    "start": "ts-node index.ts",
-    "build": "tsc"
+  "git repository": "https://github.com/open-template-hub/open-template-hub-common",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-template-hub/common.git"
   },
-  "engines": {
-    "node": "12.13.1",
-    "npm": "6.12.1"
-  }
+  "keywords": [
+    "common",
+    "server",
+    "rest",
+    "node",
+    "nodejs",
+    "typescript",
+    "mongo",
+    "mongodb",
+    "mongoose",
+    "postgre",
+    "postgresql",
+    "cli",
+    "backend",
+    "template",
+    "open template hub",
+    "open template hub library",
+    "util",
+    "utility",
+    "utilities",
+    "token"
+  ]
 }
