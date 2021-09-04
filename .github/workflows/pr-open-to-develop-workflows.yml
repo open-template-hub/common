@@ -1,0 +1,21 @@
+name: PR Open to Develop Workflows
+
+on:
+  pull_request:
+    types: [ opened ]
+    branches:
+      - "develop"
+
+jobs:
+  auto-merge:
+    name: "Auto Merge"
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.14.3"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "workflow"
+          MERGE_COMMIT_MESSAGE: "Auto merge workflow labeled PR"
+          MERGE_FORKS: "false"
+          MERGE_RETRY_SLEEP: "60000"
