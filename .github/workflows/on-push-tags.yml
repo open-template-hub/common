@@ -80,11 +80,11 @@ jobs:
     steps:
       - name: Merge from master
         run: |
-          git checkout master
+          git checkout origin/master
           git pull
-          git checkout develop
+          git checkout origin/develop
           git pull
           git config --global user.email "fatihturker35@gmail.com"
           git config --global user.name "Fatih Turker"
-          git merge master --allow-unrelated-histories
+          git merge origin/master --allow-unrelated-histories
           git push
