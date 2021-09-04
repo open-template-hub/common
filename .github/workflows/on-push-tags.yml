@@ -84,10 +84,14 @@ jobs:
           token: ${{ secrets.MASTER_BRANCH_ACCESS_TOKEN }}
           ref: develop
           
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.MASTER_BRANCH_ACCESS_TOKEN }}
+          ref: master
+          
       - name: Merge from master
         run: |
-          git checkout master
-          git pull
           git checkout develop
           git pull
           git config --global user.email "fatihturker35@gmail.com"
