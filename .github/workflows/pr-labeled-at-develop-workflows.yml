@@ -1,8 +1,9 @@
-name: PR Open to Develop Workflows
+name: PR Labeled at Develop Workflows
 
 on:
   pull_request:
-    types: [ labeled ]
+    types:
+      -labeled
     branches:
       - "develop"
 
