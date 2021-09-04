@@ -96,7 +96,5 @@ jobs:
           git pull
           git checkout develop
           git pull
-          git config --global user.email "fatihturker35@gmail.com"
-          git config --global user.name "Fatih Turker"
-          git merge -s ours master --allow-unrelated-histories
+          git merge -x ours master --allow-unrelated-histories
           git push
