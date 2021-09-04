@@ -3,6 +3,8 @@ name: PR Open to Develop Workflows
 on:
   pull_request:
     types: [ opened ]
+    branches:
+      - "master"
 
 jobs:
   auto-merge:
