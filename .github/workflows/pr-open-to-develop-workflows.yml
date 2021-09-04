@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [ opened ]
     branches:
-      - "master"
+      - "develop"
 
 jobs:
   auto-merge:
