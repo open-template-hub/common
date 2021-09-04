@@ -100,6 +100,5 @@ jobs:
           git config --global user.name "Fatih Turker"
           git checkout master package.json
           npm install
-          git add package.json
-          git commit -m "Automated update for version"
+          git merge master
           git push
