@@ -50,4 +50,6 @@ jobs:
       - name: Merge from master
         run: |
           git merge origin/master --allow-unrelated-histories
+          git config --global user.email "fatihturker35@gmail.com"
+          git config --global user.name "Fatih Turker"
           git push
