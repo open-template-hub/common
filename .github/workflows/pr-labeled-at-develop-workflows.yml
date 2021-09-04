@@ -3,9 +3,9 @@ name: PR Labeled at Develop Workflows
 on:
   pull_request:
     types:
-      -labeled
+      - labeled
     branches:
-      - "master"
+      - master
 
 jobs:
   auto-merge:
