@@ -101,5 +101,5 @@ jobs:
           git checkout master package.json
           npm install
           git add package.json
-          git commit
+          git commit -m "Automated update for version"
           git push
