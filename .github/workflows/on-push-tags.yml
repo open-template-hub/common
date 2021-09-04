@@ -97,4 +97,5 @@ jobs:
           git config --global user.email "fatihturker35@gmail.com"
           git config --global user.name "Fatih Turker"
           git merge origin/master --allow-unrelated-histories
+          npm i
           git push
