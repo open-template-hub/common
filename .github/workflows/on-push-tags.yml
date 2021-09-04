@@ -100,5 +100,5 @@ jobs:
           git config --global user.name "Fatih Turker"
           git checkout master package.json
           npm install
-          git merge master
+          git merge master --allow-unrelated-histories
           git push
