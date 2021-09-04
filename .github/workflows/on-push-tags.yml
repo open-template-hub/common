@@ -92,10 +92,13 @@ jobs:
           
       - name: Merge from master
         run: |
-          git checkout develop
+          git checkout origin develop
           git pull
           git config --global user.email "fatihturker35@gmail.com"
           git config --global user.name "Fatih Turker"
           git merge origin/master --allow-unrelated-histories
-          npm i
+          rm package-lock.json
+          npm install
+          git add package-lock.json
+          git commit
           git push
