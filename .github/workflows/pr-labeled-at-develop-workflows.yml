@@ -1,10 +1,11 @@
-name: PR Open to Develop Workflows
+name: PR Labeled at Develop Workflows
 
 on:
   pull_request:
-    types: [ labeled ]
+    types:
+      - labeled
     branches:
-      - "develop"
+      - develop
 
 jobs:
   auto-merge:
@@ -16,6 +17,6 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "workflow"
-          MERGE_COMMIT_MESSAGE: "Auto merge workflow labeled PR"
+          MERGE_COMMIT_MESSAGE: "Auto merge for PR with workflow label"
           MERGE_FORKS: "false"
           MERGE_RETRY_SLEEP: "60000"
