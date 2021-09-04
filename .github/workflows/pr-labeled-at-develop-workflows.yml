@@ -5,7 +5,7 @@ on:
     types:
       - labeled
     branches:
-      - master
+      - develop
 
 jobs:
   auto-merge:
