@@ -17,6 +17,6 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "workflow"
-          MERGE_COMMIT_MESSAGE: "Auto merge workflow labeled PR"
+          MERGE_COMMIT_MESSAGE: "Auto merge for PR with workflow label"
           MERGE_FORKS: "false"
           MERGE_RETRY_SLEEP: "60000"
