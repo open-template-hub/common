@@ -42,9 +42,8 @@ jobs:
 
       - name: Merge from master
         run: |
-          git checkout master
           git pull
           git checkout develop
           git pull
-          git merge master
+          git reset --hard origin/master
           git push
