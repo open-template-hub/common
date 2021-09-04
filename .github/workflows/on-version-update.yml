@@ -49,5 +49,5 @@ jobs:
           
       - name: Merge from master
         run: |
-          git merge origin/master
+          git merge origin/master --allow-unrelated-histories
           git push
