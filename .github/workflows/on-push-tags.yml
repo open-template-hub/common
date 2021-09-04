@@ -98,8 +98,5 @@ jobs:
           git pull
           git config --global user.email "fatihturker35@gmail.com"
           git config --global user.name "Fatih Turker"
-          git checkout master package.json
-          npm install
-          git pull
-          git merge master --allow-unrelated-histories
+          git merge -s ours master --allow-unrelated-histories
           git push
