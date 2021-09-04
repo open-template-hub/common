@@ -49,5 +49,5 @@ jobs:
           
       - name: Merge from master
         run: |
-          git merge master
+          git merge origin/master
           git push
