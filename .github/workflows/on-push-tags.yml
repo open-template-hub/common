@@ -14,7 +14,7 @@ jobs:
       - name: Generate Release From Tag
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.MASTER_BRANCH_ACCESS_TOKEN }}"
           prerelease: false
 
   publish-npm:
@@ -70,31 +70,4 @@ jobs:
       - name: NPM Publish
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          
-  merge-from-master-to-develop:
-    name: "Merge from master to develop"
-    runs-on: ubuntu-latest
-    needs: publish-npm
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.MASTER_BRANCH_ACCESS_TOKEN }}
-          ref: develop
-          
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.MASTER_BRANCH_ACCESS_TOKEN }}
-          ref: master
-          
-      - name: Merge from master
-        run: |
-          git checkout master
-          git pull
-          git checkout develop
-          git pull
-          git merge -x ours master --allow-unrelated-histories
-          git push
+          NODE_AUTH_TOKEN: ${{secrets.MASTER_BRANCH_ACCESS_TOKEN}}
