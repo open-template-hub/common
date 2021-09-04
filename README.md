@@ -60,4 +60,3 @@ No sponsors yet! **Will you be the first?**
 ## LICENSE
 
 The source code for this project is released under the [MIT License](LICENSE).
-
