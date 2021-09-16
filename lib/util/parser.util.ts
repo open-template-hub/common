@@ -10,10 +10,10 @@ export class ParserUtil {
    * @param json json
    * @param path path
    */
-  getJsonValue = ( json: any, path: string ) => {
-    if ( !path ) {
+  getJsonValue = (json: any, path: string) => {
+    if (!path) {
       return undefined;
     }
-    return objectPath.get( json, path );
+    return objectPath.get(json, path);
   };
 }

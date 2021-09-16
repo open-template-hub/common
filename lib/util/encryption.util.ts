@@ -7,27 +7,26 @@ import CryptoJS from 'crypto-js';
 import { EnvArgs } from '../interface/environment-args.interface';
 
 export class EncryptionUtil {
-  constructor( private args: EnvArgs ) {
-  }
+  constructor(private args: EnvArgs) {}
 
   /**
    * encrpyts response
    * @param args arguments
    */
-  encrypt = ( args: IArguments ) => {
+  encrypt = (args: IArguments) => {
     if (
-        args === undefined ||
-        args === null ||
-        !this.args.responseEncryptionSecret
+      args === undefined ||
+      args === null ||
+      !this.args.tokenArgs?.responseEncryptionSecret
     )
       return args;
 
-    for ( let i = 0; i < args.length; i++ ) {
+    for (let i = 0; i < args.length; i++) {
       let encrypted = CryptoJS.RC4.encrypt(
-          args[ i ].toString(),
-          this.args.responseEncryptionSecret
+        args[i].toString(),
+        this.args.tokenArgs?.responseEncryptionSecret
       );
-      args[ i ] = JSON.stringify( encrypted );
+      args[i] = JSON.stringify(encrypted);
     }
 
     return args;
@@ -37,17 +36,17 @@ export class EncryptionUtil {
    * decrypts text
    * @param encrypted_text
    */
-  decrypt = ( encrypted_text: string ) => {
-    if ( !encrypted_text || !this.args.responseEncryptionSecret ) {
+  decrypt = (encrypted_text: string) => {
+    if (!encrypted_text || !this.args.tokenArgs?.responseEncryptionSecret) {
       return encrypted_text;
     }
 
     const decrypted_text = CryptoJS.RC4.decrypt(
-        encrypted_text,
-        this.args.responseEncryptionSecret
-    ).toString( CryptoJS.enc.Utf8 );
+      encrypted_text,
+      this.args.tokenArgs?.responseEncryptionSecret
+    ).toString(CryptoJS.enc.Utf8);
 
-    return JSON.parse( decrypted_text );
+    return JSON.parse(decrypted_text);
   };
 
   /**
@@ -55,7 +54,7 @@ export class EncryptionUtil {
    * @param base_string base string
    * @param key key
    */
-  hash_function_sha1( base_string: string, key: string ) {
-    return crypto.createHmac( 'sha1', key ).update( base_string ).digest( 'base64' );
+  hash_function_sha1(base_string: string, key: string) {
+    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
   }
 }

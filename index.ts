@@ -7,6 +7,7 @@ export * from './lib/context';
 // enum
 export * from './lib/enum/user-role.enum';
 export * from './lib/enum/log-severity.enum';
+export * from './lib/enum/message-queue-channel-type.enum';
 
 // interface
 export * from './lib/interface/context.interface';
@@ -14,10 +15,12 @@ export * from './lib/interface/user.interface';
 export * from './lib/interface/environment-args.interface';
 export * from './lib/interface/http-error.interface';
 export * from './lib/interface/log-args.interface';
+export * from './lib/interface/message.interface';
 
 // provider
 export * from './lib/provider/mongo.provider';
 export * from './lib/provider/postgre.provider';
+export * from './lib/provider/message-queue.provider';
 
 // util
 export * from './lib/util/auth.util';
