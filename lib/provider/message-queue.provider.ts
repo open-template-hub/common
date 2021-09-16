@@ -1,16 +1,16 @@
-import * as Queue from 'amqplib';
+import { Connection, connect, Message } from 'amqplib';
 import { EnvArgs } from '../interface/environment-args.interface';
 import { QueueMessage } from '../interface/message.interface';
 
 export class MessageQueueProvider {
-  private queueConnection: Queue.Connection | null;
+  private queueConnection: Connection | null;
 
   constructor(private envArgs: EnvArgs) {
     this.queueConnection = null;
   }
 
   connect = async () => {
-    this.queueConnection = await Queue.connect(
+    this.queueConnection = await connect(
       this.envArgs.mqArgs?.messageQueueConnectionUrl as string
     );
   };
@@ -51,7 +51,7 @@ export class MessageQueueProvider {
     }
   };
 
-  acknowledge = async (queue: string, msg: Queue.Message) => {
+  acknowledge = async (queue: string, msg: Message) => {
     await this.checkAndConnectOnNeed();
     var channel = await this.getChannel(queue);
     channel.ack(msg);
