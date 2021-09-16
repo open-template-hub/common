@@ -1,3 +1,7 @@
+/**
+ * @description holds message queue provider
+ */
+
 import { Connection, connect, Message } from 'amqplib';
 import { EnvArgs } from '../interface/environment-args.interface';
 import { QueueMessage } from '../interface/message.interface';
