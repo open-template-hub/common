@@ -11,7 +11,7 @@ export class MessageQueueProvider {
 
   connect = async () => {
     this.queueConnection = await Queue.connect(
-      this.envArgs.messageQueueConnectionUrl as string
+      this.envArgs.mqArgs?.messageQueueConnectionUrl as string
     );
   };
 
