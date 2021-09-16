@@ -3,6 +3,7 @@
  */
 
 import { UserRole } from '../enum/user-role.enum';
+import { MessageQueueProvider } from '../provider/message-queue.provider';
 import { MongoDbProvider } from '../provider/mongo.provider';
 import { PostgreSqlProvider } from '../provider/postgre.provider';
 
@@ -14,4 +15,5 @@ export interface Context {
   username: string;
   serviceKey: string;
   token: string;
+  message_queue_provider: MessageQueueProvider;
 }

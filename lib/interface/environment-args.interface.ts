@@ -26,4 +26,5 @@ export interface EnvArgs {
   clientVerificationSuccessUrl?: string;
   verifyAccountMailTemplatePath?: string;
   resetPasswordMailTemplatePath?: string;
+  messageQueueConnectionUrl?: string;
 }
