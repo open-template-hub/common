@@ -2,19 +2,19 @@
  * @description holds message queue provider
  */
 
-import { Connection, connect, Message } from 'amqplib';
+import { Queue } from '../wrapper/mq-wrapper';
 import { EnvArgs } from '../interface/environment-args.interface';
 import { QueueMessage } from '../interface/message.interface';
 
 export class MessageQueueProvider {
-  private queueConnection: Connection | null;
+  private queueConnection: any | null;
 
   constructor(private envArgs: EnvArgs) {
     this.queueConnection = null;
   }
 
   connect = async () => {
-    this.queueConnection = await connect(
+    this.queueConnection = await Queue.connect(
       this.envArgs.mqArgs?.messageQueueConnectionUrl as string
     );
   };
@@ -55,7 +55,7 @@ export class MessageQueueProvider {
     }
   };
 
-  acknowledge = async (queue: string, msg: Message) => {
+  acknowledge = async (queue: string, msg: any) => {
     await this.checkAndConnectOnNeed();
     var channel = await this.getChannel(queue);
     channel.ack(msg);
