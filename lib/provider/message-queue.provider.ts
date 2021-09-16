@@ -2,9 +2,9 @@
  * @description holds message queue provider
  */
 
-import { Queue } from '../wrapper/mq-wrapper';
 import { EnvArgs } from '../interface/environment-args.interface';
 import { QueueMessage } from '../interface/message.interface';
+import * as Queue from 'amqplib';
 
 export class MessageQueueProvider {
   private queueConnection: any | null;
