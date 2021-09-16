@@ -15,9 +15,9 @@ class LoggerUtil {
       if (!args.callerMethod) {
         try {
           throw new Error();
-        } catch (e: any) {
+        } catch (e) {
           let regExp = /(\w+)@|at (\w+) \(/g;
-          let stack = e.stack;
+          let stack = (e as any).stack;
           let callerMethod = regExp.exec(stack);
 
           if (callerMethod) {

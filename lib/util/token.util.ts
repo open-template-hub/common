@@ -84,12 +84,13 @@ export class TokenUtil {
   verifyAccessToken = (token: string) => {
     try {
       return jwt.verify(token, this.args.tokenArgs?.accessTokenSecret || '');
-    } catch (e: any) {
-      console.error(e);
-      if (e.name === 'JsonWebTokenError') {
-        e.responseCode = ResponseCode.FORBIDDEN;
-      } else if (e.name === 'TokenExpiredError') {
-        e.responseCode = ResponseCode.UNAUTHORIZED;
+    } catch (e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
     }
@@ -102,13 +103,14 @@ export class TokenUtil {
   verifyRefreshToken = (token: string) => {
     try {
       return jwt.verify(token, this.args.tokenArgs?.refreshTokenSecret || '');
-    } catch (e: any) {
-      console.error(e);
-      if (e.name === 'JsonWebTokenError') {
-        e.responseCode = ResponseCode.FORBIDDEN;
-      } else if (e.name === 'TokenExpiredError') {
-        e.responseCode = ResponseCode.UNAUTHORIZED;
-        e.message = 'refresh token expired';
+    } catch (e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+        error.message = 'refresh token expired';
       }
       throw e;
     }
@@ -124,12 +126,13 @@ export class TokenUtil {
         token,
         this.args.tokenArgs?.verificationTokenSecret || ''
       );
-    } catch (e: any) {
-      console.error(e);
-      if (e.name === 'JsonWebTokenError') {
-        e.responseCode = ResponseCode.FORBIDDEN;
-      } else if (e.name === 'TokenExpiredError') {
-        e.responseCode = ResponseCode.UNAUTHORIZED;
+    } catch (e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
     }
@@ -146,12 +149,13 @@ export class TokenUtil {
         token,
         this.args.tokenArgs?.resetPasswordTokenSecret + currentPassword
       );
-    } catch (e: any) {
-      console.error(e);
-      if (e.name === 'JsonWebTokenError') {
-        e.responseCode = ResponseCode.FORBIDDEN;
-      } else if (e.name === 'TokenExpiredError') {
-        e.responseCode = ResponseCode.UNAUTHORIZED;
+    } catch (e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
     }
