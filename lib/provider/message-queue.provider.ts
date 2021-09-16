@@ -1,5 +1,6 @@
 import * as Queue from 'amqplib';
 import { EnvArgs } from '../interface/environment-args.interface';
+import { QueueMessage } from '../interface/message.interface';
 
 export class MessageQueueProvider {
   private queueConnection: Queue.Connection | null;
@@ -10,16 +11,16 @@ export class MessageQueueProvider {
 
   connect = async () => {
     this.queueConnection = await Queue.connect(
-      this.envArgs.messageQueueConnectionUrl as string
+      this.envArgs.mqArgs?.messageQueueConnectionUrl as string
     );
   };
 
-  publish = async (message: any, queue: string) => {
+  publish = async (message: QueueMessage, queue: string) => {
     await this.checkAndConnectOnNeed();
 
     var channel = await this.getChannel(queue);
 
-    channel.sendToQueue(queue, Buffer.from(message), {
+    channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)), {
       persistent: true,
     });
   };

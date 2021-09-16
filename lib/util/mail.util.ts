@@ -15,14 +15,22 @@ export class MailUtil {
   private readonly pass: string;
 
   constructor(
-      private args: EnvArgs,
-      private debugLogUtil = new DebugLogUtil(),
-      private builder = new BuilderUtil()
+    private args: EnvArgs,
+    private debugLogUtil = new DebugLogUtil(),
+    private builder = new BuilderUtil()
   ) {
-    this.host = this.args.mailHost ? this.args.mailHost : '';
-    this.port = this.args.mailPort ? parseInt(this.args.mailPort) : 465 // Default;
-    this.user = this.args.mailUsername ? this.args.mailUsername : '';
-    this.pass = this.args.mailPassword ? this.args.mailPassword : '';
+    this.host = this.args.mailArgs?.mailHost
+      ? this.args.mailArgs?.mailHost
+      : '';
+    this.port = this.args.mailArgs?.mailPort
+      ? parseInt(this.args.mailArgs?.mailPort)
+      : 465; // Default;
+    this.user = this.args.mailArgs?.mailUsername
+      ? this.args.mailArgs?.mailUsername
+      : '';
+    this.pass = this.args.mailArgs?.mailPassword
+      ? this.args.mailArgs?.mailPassword
+      : '';
   }
 
   /**
@@ -30,18 +38,18 @@ export class MailUtil {
    * @param user user
    * @param token token
    */
-  sendAccountVerificationMail = async ( user: User, token: string ) => {
-    const clientUrl = this.args.clientUrl || '';
+  sendAccountVerificationMail = async (user: User, token: string) => {
+    const clientUrl = this.args.extentedArgs?.clientUrl || '';
     const clientVerificationSuccessUrl =
-        this.args.clientVerificationSuccessUrl || '';
+      this.args.extentedArgs?.clientVerificationSuccessUrl || '';
 
     let url = clientUrl + clientVerificationSuccessUrl + '?token=' + token;
 
     await this.send(
-        url,
-        user,
-        'Account verification',
-        this.args.verifyAccountMailTemplatePath || ''
+      url,
+      user,
+      'Account verification',
+      this.args.mailArgs?.verifyAccountMailTemplatePath || ''
     );
   };
 
@@ -50,23 +58,24 @@ export class MailUtil {
    * @param user user
    * @param token token
    */
-  sendPasswordResetMail = async ( user: User, token: string ) => {
-    const clientUrl = this.args.clientUrl || '';
-    const clientResetPasswordUrl = this.args.clientResetPasswordUrl || '';
+  sendPasswordResetMail = async (user: User, token: string) => {
+    const clientUrl = this.args.extentedArgs?.clientUrl || '';
+    const clientResetPasswordUrl =
+      this.args.extentedArgs?.clientResetPasswordUrl || '';
 
     let url =
-        clientUrl +
-        clientResetPasswordUrl +
-        '?token=' +
-        token +
-        '&username=' +
-        user.username;
+      clientUrl +
+      clientResetPasswordUrl +
+      '?token=' +
+      token +
+      '&username=' +
+      user.username;
 
     await this.send(
-        url,
-        user,
-        'Forget password',
-        this.args.resetPasswordMailTemplatePath || ''
+      url,
+      user,
+      'Forget password',
+      this.args.mailArgs?.resetPasswordMailTemplatePath || ''
     );
   };
 
@@ -77,39 +86,39 @@ export class MailUtil {
    * @param subject mail subject
    * @param template mail template
    */
-  send = async ( url: string, user: User, subject: string, template: string ) => {
-    if ( this.args.mailServerDisabled ) {
+  send = async (url: string, user: User, subject: string, template: string) => {
+    if (this.args.mailArgs?.mailServerDisabled) {
       this.debugLogUtil.log(
-          'Mail server is disabled. Some functionalities may not work properly.'
+        'Mail server is disabled. Some functionalities may not work properly.'
       );
       return;
     }
 
-    console.log( '> MailUtil::send => Create Transport: ', url );
-    let transporter = nodemailer.createTransport( {
+    console.log('> MailUtil::send => Create Transport: ', url);
+    let transporter = nodemailer.createTransport({
       host: this.host,
       port: this.port,
       secure: true,
       auth: {
         user: this.user,
-        pass: this.pass
-      }
-    })
+        pass: this.pass,
+      },
+    });
 
     let params = new Map<string, string>();
-    params.set( '${url}', url );
-    params.set( '${url2}', url );
-    params.set( '${username}', user.username );
+    params.set('${url}', url);
+    params.set('${url2}', url);
+    params.set('${username}', user.username);
 
-    let mailBody = this.builder.buildTemplateFromFile( template, params );
+    let mailBody = this.builder.buildTemplateFromFile(template, params);
 
-    console.log( '> MailUtil::send => Sending Email: ', user.username );
+    console.log('> MailUtil::send => Sending Email: ', user.username);
 
-    await transporter.sendMail( {
-      from: this.args.mailUsername,
+    await transporter.sendMail({
+      from: this.args.mailArgs?.mailUsername,
       to: user.email,
       subject: subject,
       html: mailBody,
-    } );
+    });
   };
 }

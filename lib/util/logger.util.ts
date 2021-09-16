@@ -10,18 +10,18 @@ class LoggerUtil {
    * Log
    * @param args log args
    */
-  log = ( args: LogArgs ) => {
+  log = (args: LogArgs) => {
     try {
-      if ( !args.callerMethod ) {
+      if (!args.callerMethod) {
         try {
           throw new Error();
-        } catch ( e ) {
+        } catch (e: any) {
           let regExp = /(\w+)@|at (\w+) \(/g;
           let stack = e.stack;
-          let callerMethod = regExp.exec( stack );
+          let callerMethod = regExp.exec(stack);
 
-          if ( callerMethod ) {
-            args.callerMethod = callerMethod[ 1 ] || callerMethod[ 2 ];
+          if (callerMethod) {
+            args.callerMethod = callerMethod[1] || callerMethod[2];
           } else {
             args.callerMethod = 'NonSpecifiedMethod';
           }
@@ -29,22 +29,22 @@ class LoggerUtil {
       }
 
       let callerType;
-      if ( args.callerInstanceName ) {
+      if (args.callerInstanceName) {
         callerType = args.callerInstanceName;
-      } else if ( args.callerInstance ) {
+      } else if (args.callerInstance) {
         callerType = args.callerInstance.constructor.name;
       } else {
         callerType = 'NonSpecifiedClass';
       }
 
       console.log(
-          `${ args.severity } | ${ callerType }::${ args.callerMethod } => ${ args.message }`,
-          args.args ? args.args : ''
+        `${args.severity} | ${callerType}::${args.callerMethod} => ${args.message}`,
+        args.args ? args.args : ''
       );
-    } catch ( e ) {
+    } catch (e) {
       console.log(
-          `${ LogSeverity.MINOR } | LoggerUtil::log => Unexpected error occurred while logging: `,
-          e
+        `${LogSeverity.MINOR} | LoggerUtil::log => Unexpected error occurred while logging: `,
+        e
       );
     }
   };
