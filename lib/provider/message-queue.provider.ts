@@ -20,41 +20,29 @@ export class MessageQueueProvider {
   };
 
   publish = async (message: QueueMessage, channelTag: string) => {
-    await this.checkAndConnectOnNeed();
-
+    await this.connect();
     var channel = await this.getChannel(channelTag);
-
     channel.sendToQueue(channelTag, Buffer.from(JSON.stringify(message)));
   };
 
   consume = async (channelTag: string, onMessage: any) => {
-    await this.checkAndConnectOnNeed();
+    await this.connect();
 
     var channel = await this.getChannel(channelTag);
     await channel.prefetch(1);
-    await channel.consume(channelTag, onMessage, { noAck: false });
-  };
-
-  checkAndConnectOnNeed = async () => {
-    if (!(this.queueConnection && this.queueConnection.connection)) {
-      await this.connect();
-    }
+    channel.consume(channelTag, onMessage, { noAck: false });
   };
 
   getChannel = async (channelTag: string) => {
-    if (this.queueConnection) {
-      var channel = await this.queueConnection.createChannel();
-      await channel.assertQueue(channelTag, {
-        durable: true,
-      });
-      return channel;
-    } else {
-      throw new Error('Queue connection not established');
-    }
+    var channel = await this.queueConnection.createChannel();
+    await channel.assertQueue(channelTag, {
+      durable: true,
+    });
+    return channel;
   };
 
   acknowledge = async (channelTag: string, msg: any) => {
-    await this.checkAndConnectOnNeed();
+    await this.connect();
     var channel = await this.getChannel(channelTag);
     channel.ack(msg);
   };
