@@ -20,7 +20,7 @@ export * from './lib/interface/message.interface';
 // provider
 export * from './lib/provider/mongo.provider';
 export * from './lib/provider/postgre.provider';
-// export * from './lib/provider/message-queue.provider';
+export * from './lib/provider/message-queue.provider';
 
 // util
 export * from './lib/util/auth.util';
