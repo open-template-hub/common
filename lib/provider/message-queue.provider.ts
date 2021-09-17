@@ -19,22 +19,20 @@ export class MessageQueueProvider {
     );
   };
 
-  publish = async (message: QueueMessage, queue: string) => {
+  publish = async (message: QueueMessage, channelTag: string) => {
     await this.checkAndConnectOnNeed();
 
-    var channel = await this.getChannel(queue);
+    var channel = await this.getChannel(channelTag);
 
-    channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)), {
-      persistent: true,
-    });
+    channel.sendToQueue(channelTag, Buffer.from(JSON.stringify(message)));
   };
 
-  consume = async (queue: string, onMessage: any) => {
+  consume = async (channelTag: string, onMessage: any) => {
     await this.checkAndConnectOnNeed();
 
-    var channel = await this.getChannel(queue);
+    var channel = await this.getChannel(channelTag);
     await channel.prefetch(1);
-    await channel.consume(queue, onMessage, { noAck: false });
+    await channel.consume(channelTag, onMessage, { noAck: false });
   };
 
   checkAndConnectOnNeed = async () => {
@@ -43,10 +41,10 @@ export class MessageQueueProvider {
     }
   };
 
-  getChannel = async (queue: string) => {
+  getChannel = async (channelTag: string) => {
     if (this.queueConnection) {
       var channel = await this.queueConnection.createChannel();
-      await channel.assertQueue(queue, {
+      await channel.assertQueue(channelTag, {
         durable: true,
       });
       return channel;
@@ -55,9 +53,9 @@ export class MessageQueueProvider {
     }
   };
 
-  acknowledge = async (queue: string, msg: any) => {
+  acknowledge = async (channelTag: string, msg: any) => {
     await this.checkAndConnectOnNeed();
-    var channel = await this.getChannel(queue);
+    var channel = await this.getChannel(channelTag);
     channel.ack(msg);
   };
 }
