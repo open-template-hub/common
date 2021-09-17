@@ -34,7 +34,7 @@ export class MessageQueueProvider {
 
     var channel = await this.getChannel(queue);
     await channel.prefetch(1);
-    await channel.consume(queue, onMessage);
+    await channel.consume(queue, onMessage, { noAck: false });
   };
 
   checkAndConnectOnNeed = async () => {
