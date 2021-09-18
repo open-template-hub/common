@@ -19,6 +19,10 @@ export class MessageQueueProvider {
     );
   };
 
+  getConnection = () => {
+    return this.queueConnection;
+  };
+
   publish = async (message: QueueMessage, channelTag: string) => {
     await this.connect();
     var channel = await this.getChannel(channelTag);
@@ -29,15 +33,12 @@ export class MessageQueueProvider {
     await this.connect();
 
     var channel = await this.getChannel(channelTag);
-    await channel.prefetch(1);
-    channel.consume(channelTag, onMessage, { noAck: false });
+    channel.consume(channelTag, onMessage);
   };
 
   getChannel = async (channelTag: string) => {
     var channel = await this.queueConnection.createChannel();
-    await channel.assertQueue(channelTag, {
-      durable: true,
-    });
+    await channel.assertQueue(channelTag);
     return channel;
   };
 
@@ -45,5 +46,11 @@ export class MessageQueueProvider {
     await this.connect();
     var channel = await this.getChannel(channelTag);
     channel.ack(msg);
+  };
+
+  reject = async (channelTag: string, msg: any, requeue: boolean) => {
+    await this.connect();
+    var channel = await this.getChannel(channelTag);
+    channel.reject(msg, requeue);
   };
 }
