@@ -4,6 +4,9 @@
 export * from './lib/constant';
 export * from './lib/context';
 
+// action
+export * from './lib/action/index.action';
+
 // enum
 export * from './lib/enum/user-role.enum';
 export * from './lib/enum/log-severity.enum';
