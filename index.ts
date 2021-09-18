@@ -5,7 +5,7 @@ export * from './lib/constant';
 export * from './lib/context';
 
 // action
-export * from './lib/action/index.action';
+export * from './lib/action/mail.action';
 
 // enum
 export * from './lib/enum/user-role.enum';
