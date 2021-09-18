@@ -24,11 +24,11 @@ export class MessageQueueProvider {
   };
 
   consume = async (
+    channel: any,
     channelTag: string,
     onMessage: any,
     messageCount: number
   ) => {
-    var channel = await this.getChannel(channelTag);
     channel.prefetch(messageCount);
     channel.consume(channelTag, onMessage, {
       // manual acknowledgment mode
@@ -44,15 +44,5 @@ export class MessageQueueProvider {
       durable: true,
     });
     return channel;
-  };
-
-  acceptAck = async (channelTag: string, msg: any) => {
-    var channel = await this.getChannel(channelTag);
-    channel.ack(msg);
-  };
-
-  rejectAck = async (channelTag: string, msg: any, requeue: boolean) => {
-    var channel = await this.getChannel(channelTag);
-    channel.reject(msg, requeue);
   };
 }
