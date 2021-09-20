@@ -34,8 +34,6 @@ export interface MailArgs {
   mailUsername?: string;
   mailPassword?: string;
   mailServerDisabled?: boolean;
-  verifyAccountMailTemplatePath?: string;
-  resetPasswordMailTemplatePath?: string;
 }
 
 export interface MqArgs {
