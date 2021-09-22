@@ -4,7 +4,6 @@
 
 import nodemailer from 'nodemailer';
 import { EnvArgs } from '../interface/environment-args.interface';
-import { DebugLogUtil } from './debug-log.util';
 
 export class MailUtil {
   private readonly host: string;
@@ -12,10 +11,7 @@ export class MailUtil {
   private readonly user: string;
   private readonly pass: string;
 
-  constructor(
-    private args: EnvArgs,
-    private debugLogUtil = new DebugLogUtil()
-  ) {
+  constructor(private args: EnvArgs) {
     this.host = this.args.mailArgs?.mailHost
       ? this.args.mailArgs?.mailHost
       : '';
@@ -37,13 +33,6 @@ export class MailUtil {
    * @param body mail body
    */
   send = async (to: string, subject: string, body: string) => {
-    if (this.args.mailArgs?.mailServerDisabled) {
-      this.debugLogUtil.log(
-        'Mail server is disabled. Some functionalities may not work properly.'
-      );
-      return;
-    }
-
     let transporter = nodemailer.createTransport({
       host: this.host,
       port: this.port,

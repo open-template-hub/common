@@ -5,7 +5,12 @@ export * from './lib/constant';
 export * from './lib/context';
 
 // action
+export * from './lib/action/analytics.action';
+export * from './lib/action/auth.action';
+export * from './lib/action/basic.action';
+export * from './lib/action/file.action';
 export * from './lib/action/mail.action';
+export * from './lib/action/payment.action';
 
 // enum
 export * from './lib/enum/user-role.enum';

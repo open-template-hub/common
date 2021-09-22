@@ -8,6 +8,7 @@ export interface EnvArgs {
   mailArgs?: MailArgs;
   extentedArgs?: ExtendedArgs;
   mqArgs?: MqArgs;
+  serverSpecificArgs?: any;
 }
 
 export interface TokenArgs {
@@ -33,7 +34,6 @@ export interface MailArgs {
   mailPort?: string;
   mailUsername?: string;
   mailPassword?: string;
-  mailServerDisabled?: boolean;
 }
 
 export interface MqArgs {
