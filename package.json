@@ -15,7 +15,7 @@
     "@types/debug": "^4.1.5",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.5.34",
-    "@types/pg": "^7.14.7",
+    "@types/pg": "^8.6.1",
     "amqplib": "^0.8.0",
     "crypto-js": "^4.0.0",
     "debug": "^4.1.1",
@@ -33,7 +33,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/nodemailer": "^6.4.0",
     "@types/object-path": "^0.11.0",
-    "@types/pg": "^7.14.7"
+    "@types/pg": "^8.6.1"
   },
   "git repository": "https://github.com/open-template-hub/open-template-hub-common",
   "repository": {
