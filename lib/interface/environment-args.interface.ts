@@ -42,7 +42,7 @@ export interface MqArgs {
   authServerMessageQueueChannel?: string;
   paymentServerMessageQueueChannel?: string;
   fileServerMessageQueueChannel?: string;
-  basicInfoServerMessageQueueChannel?: string;
+  businessLogicServerMessageQueueChannel?: string;
   analyticsServerMessageQueueChannel?: string;
   mailServerMessageQueueChannel?: string;
 }

@@ -3,7 +3,7 @@ export enum MessageQueueChannelType {
   AUTH = 1,
   PAYMENT = 2,
   FILE = 3,
-  BASIC_INFO = 4,
+  BUSINESS_LOGIC = 4,
   ANALYTICS = 5,
   MAIL = 6,
 }
