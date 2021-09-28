@@ -7,8 +7,8 @@ export * from './lib/context';
 // action
 export * from './lib/action/analytics.action';
 export * from './lib/action/auth.action';
-export * from './lib/action/basic.action';
-export * from './lib/action/file.action';
+export * from './lib/action/business-logic.action';
+export * from './lib/action/file-storage.action';
 export * from './lib/action/mail.action';
 export * from './lib/action/payment.action';
 
