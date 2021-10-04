@@ -7,7 +7,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "outdated": "node dependency-checker.ts > docs/OUTDATED.md"
   },
   "dependencies": {
     "@types/amqplib": "^0.8.2",
