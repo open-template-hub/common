@@ -6,7 +6,7 @@
 
 
 <h1 align="center">
-Open Template Hub - Common Library v2
+Open Template Hub - Common Library v3
   <br/>
 (outdated packages)
 </h1>
