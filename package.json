@@ -1,13 +1,14 @@
 {
   "name": "@open-template-hub/common",
   "description": "This library contains common functionalities for Server Templates on Open Template Hub",
-  "version": "2.1.15",
+  "version": "3.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "ts-node index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "outdated": "node dependency-checker.ts > docs/OUTDATED.md"
   },
   "dependencies": {
     "@types/amqplib": "^0.8.2",
