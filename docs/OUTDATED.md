@@ -13,8 +13,12 @@ Open Template Hub - Common Library v3
 
 Following packages are not updated in the develop branch yet. So, if you want to update outdated packages on your own risk, update the package.json and install dependencies.
 
-| Package             | Current   | Wanted   | Latest   | Location |
+| Package      | Current    | Wanted   | Latest   | Location |
 | --- | --- | --- | --- | --- |
+| @types/pg    | 7.14.11  7 | .14.11   |  8.6.1   | @open-template-hub/common |
+| mongoose     | 5.13.12  5 | .13.12   | 6.0.12   | @open-template-hub/common |
+| ts-node      |  8.10.2    | 8.10.2   | 10.4.0   | @open-template-hub/common |
+| typescript   |  3.9.10    | 3.9.10   |  4.4.4   | @open-template-hub/common |
 
 <table align="right"><tr><td><a href="https://opentemplatehub.com"><img src="https://raw.githubusercontent.com/open-template-hub/open-template-hub.github.io/master/assets/logo/brand-logo.png" width="50px" alt="oth"/></a></td><td><b>Open Template Hub © 2021</b></td></tr></table>
 
