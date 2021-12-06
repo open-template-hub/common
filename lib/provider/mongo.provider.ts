@@ -35,20 +35,12 @@ export class MongoDbProvider {
     this.connection = await mongoose
       .createConnection(this.args.dbArgs?.mongoDbUri as string, {
         bufferCommands: false,
-        bufferMaxEntries: 0,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
         keepAlive: true,
-        poolSize: this.args.dbArgs?.mongoDbConnectionLimit
+        maxPoolSize: this.args.dbArgs?.mongoDbConnectionLimit
           ? parseInt(this.args.dbArgs?.mongoDbConnectionLimit)
           : 1,
         socketTimeoutMS: 0,
-      })
-      .catch((error) => {
-        throw error;
-      });
+      }).asPromise();
   };
 
   /**
