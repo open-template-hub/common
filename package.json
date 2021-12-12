@@ -12,29 +12,26 @@
   },
   "dependencies": {
     "@types/amqplib": "^0.8.2",
-    "@types/crypto-js": "^4.0.1",
-    "@types/debug": "^4.1.5",
-    "@types/jsonwebtoken": "^8.5.0",
-    "@types/mongoose": "^5.5.34",
-    "@types/pg": "^7.14.7",
+    "@types/debug": "^4.1.7",
+    "@types/mongoose": "^5.11.97",
     "amqplib": "^0.8.0",
-    "crypto-js": "^4.0.0",
-    "debug": "^4.1.1",
+    "crypto-js": "^4.1.1",
+    "debug": "^4.3.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.2",
-    "nodemailer": "^6.4.17",
-    "object-path": "^0.11.5",
-    "pg": "^8.5.1",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.4.5"
+    "mongoose": "^6.0.8",
+    "nodemailer": "^6.7.2",
+    "object-path": "^0.11.8",
+    "pg": "^8.7.1",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
   },
   "devDependencies": {
     "@types/amqplib": "^0.8.2",
-    "@types/crypto-js": "^4.0.1",
-    "@types/jsonwebtoken": "^8.5.0",
+    "@types/crypto-js": "^4.0.2",
+    "@types/jsonwebtoken": "^8.5.6",
     "@types/nodemailer": "^6.4.0",
-    "@types/object-path": "^0.11.0",
-    "@types/pg": "^7.14.7"
+    "@types/object-path": "^0.11.1",
+    "@types/pg": "^8.6.1"
   },
   "git repository": "https://github.com/open-template-hub/open-template-hub-common",
   "repository": {
