@@ -8,7 +8,7 @@ const columnIndexes = [ 0, 0, 0, 0 ];
 console.log(
     '<p align="center">\n' +
     '  <a href="https://opentemplatehub.com">\n' +
-    '    <img src="https://raw.githubusercontent.com/open-template-hub/open-template-hub.github.io/master/assets/logo/brand-logo.png" alt="Logo" width=200>\n' +
+    '    <img src="https://raw.githubusercontent.com/open-template-hub/open-template-hub.github.io/master/assets/logo/generator/server-generator-logo.png" alt="Logo" width=200>\n' +
     '  </a>\n' +
     '</p>\n' +
     '\n' +
@@ -26,25 +26,36 @@ for ( const line of lines ) {
   if ( line.length === 0 ) {
     continue;
   }
-
+  
   if ( lines.indexOf( line ) === 0 ) {
     columnIndexes[ 0 ] = line.indexOf( 'Current' );
     columnIndexes[ 1 ] = line.indexOf( 'Wanted' ) + 3;
     columnIndexes[ 2 ] = line.indexOf( 'Latest' ) + 6;
     columnIndexes[ 3 ] = line.indexOf( 'Location' ) + 9;
   }
-
-  let modifiedLine = line;
-
+  
+  let modifiedLine = '';
+  
   if ( columnIndexes [ 0 ] >= 0 ) {
-    for ( const columnIndex of columnIndexes ) {
-      modifiedLine = modifiedLine.substring( 0, columnIndex ) + ' | ' + modifiedLine.substring( columnIndex, modifiedLine.length );
+    const stringParts = line.split( /(\s+)/ );
+    
+    modifiedLine += '| ';
+    
+    for ( let part of stringParts ) {
+      if ( part.match( /\s+/ ) ) {
+        modifiedLine += ' | ';
+      } else {
+        modifiedLine += part;
+      }
     }
-    console.log( '| ' + modifiedLine + ' |' );
+    
+    modifiedLine += ' |';
+    
+    console.log( modifiedLine );
   } else {
     console.log( modifiedLine );
   }
-
+  
   if ( lines.indexOf( line ) === 0 ) {
     console.log( '| --- | --- | --- | --- | --- |' );
   }
