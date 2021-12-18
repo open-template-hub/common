@@ -11,6 +11,7 @@ export * from './lib/action/business-logic.action';
 export * from './lib/action/file-storage.action';
 export * from './lib/action/mail.action';
 export * from './lib/action/payment.action';
+export * from './lib/action/sms.action';
 
 // enum
 export * from './lib/enum/user-role.enum';
