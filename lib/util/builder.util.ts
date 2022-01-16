@@ -47,4 +47,21 @@ export class BuilderUtil {
     }
     return generatedUrl;
   };
+
+  /**
+   * builds template from a string
+   * @param body string
+   * @param params parameters
+   */
+  buildTemplateFromString = ( body: string, params?: Map<string, string> ) => {
+    if( params ) {
+      params.forEach( ( value: string, key: string ) => {
+        body = body.replace( key, value );
+      } );
+    }
+
+    this.debugLogUtil.log( 'Successfully build template: ' + body );
+
+    return body;
+  }
 }
