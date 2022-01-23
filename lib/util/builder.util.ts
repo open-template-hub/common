@@ -60,7 +60,7 @@ export class BuilderUtil {
       } );
     }
 
-    this.debugLogUtil.log( 'Successfully build template: ' + body );
+    this.debugLogUtil.log( 'Successfully build template' );
 
     return body;
   }

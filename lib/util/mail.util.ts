@@ -3,7 +3,6 @@
  */
 
 import nodemailer from 'nodemailer';
-import { EnvArgs } from '../interface/environment-args.interface';
 
 export class MailUtil {
   private readonly host: string;
@@ -11,19 +10,16 @@ export class MailUtil {
   private readonly user: string;
   private readonly pass: string;
 
-  constructor(private args: EnvArgs) {
-    this.host = this.args.mailArgs?.mailHost
-      ? this.args.mailArgs?.mailHost
-      : '';
-    this.port = this.args.mailArgs?.mailPort
-      ? parseInt(this.args.mailArgs?.mailPort)
-      : 465; // Default;
-    this.user = this.args.mailArgs?.mailUsername
-      ? this.args.mailArgs?.mailUsername
-      : '';
-    this.pass = this.args.mailArgs?.mailPassword
-      ? this.args.mailArgs?.mailPassword
-      : '';
+  constructor(
+    user: string,
+    pass: string,
+    host: string,
+    port?: number
+  ) {
+    this.user = user;
+    this.pass = pass;
+    this.host = host
+    this.port = port ? port : 465 // Default
   }
 
   /**
@@ -46,7 +42,7 @@ export class MailUtil {
     console.log('> MailUtil::send => Sending Email: ', to);
 
     await transporter.sendMail({
-      from: this.args.mailArgs?.mailUsername,
+      from: this.user,
       to,
       subject: subject,
       html: body,
