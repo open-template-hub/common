@@ -14,12 +14,12 @@ export class MailUtil {
     user: string,
     pass: string,
     host: string,
-    port?: number // Default
+    port?: number
   ) {
     this.user = user;
     this.pass = pass;
     this.host = host
-    this.port = port ? port : 465
+    this.port = port ? port : 465 // Default
   }
 
   /**
