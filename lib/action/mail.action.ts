@@ -1,13 +1,16 @@
 export type MailActionType = {
-  contactUs: {
-    params: ContactUsMailActionParams;
-  };
-  forgetPassword: {
-    params: ForgetPasswordMailActionParams;
-  };
-  verifyAccount: {
-    params: AccountVerificationMailActionParams;
-  };
+  mailType: {
+    contactUs: {
+      params: ContactUsMailActionParams;
+    };
+    forgetPassword: {
+      params: ForgetPasswordMailActionParams;
+    };
+    verifyAccount: {
+      params: AccountVerificationMailActionParams;
+    };
+  },
+  language: string
 };
 
 export interface ContactUsMailActionParams {
