@@ -23,10 +23,10 @@ export class PostgreSqlProvider {
   preload = async () => {
     // Creating Connection Pool
     this.connectionPool = new Pool({
-      connectionString: this.args.dbArgs?.postgreSqlUri,
+      connectionString: this.args.dbArgs?.postgresqlUri,
       application_name: this.applicationName,
-      max: this.args.dbArgs?.postgreSqlConnectionLimit
-        ? parseInt(this.args.dbArgs?.postgreSqlConnectionLimit)
+      max: this.args.dbArgs?.postgresqlConnectionLimit
+        ? parseInt(this.args.dbArgs?.postgresqlConnectionLimit)
         : 1,
       ssl: {
         rejectUnauthorized: false,

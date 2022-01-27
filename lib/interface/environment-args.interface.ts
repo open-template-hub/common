@@ -5,8 +5,7 @@
 export interface EnvArgs {
   tokenArgs?: TokenArgs;
   dbArgs?: DbArgs;
-  mailArgs?: MailArgs;
-  extentedArgs?: ExtendedArgs;
+  extendedArgs?: ExtendedArgs;
   mqArgs?: MqArgs;
   serverSpecificArgs?: any;
 }
@@ -25,15 +24,8 @@ export interface TokenArgs {
 export interface DbArgs {
   mongoDbUri?: string;
   mongoDbConnectionLimit?: string;
-  postgreSqlUri?: string;
-  postgreSqlConnectionLimit?: string;
-}
-
-export interface MailArgs {
-  mailHost?: string;
-  mailPort?: string;
-  mailUsername?: string;
-  mailPassword?: string;
+  postgresqlUri?: string;
+  postgresqlConnectionLimit?: string;
 }
 
 export interface MqArgs {
