@@ -10,7 +10,7 @@ export type MailActionType = {
       params: AccountVerificationMailActionParams;
     };
   },
-  language: string
+  language?: string;
 };
 
 export interface ContactUsMailActionParams {
