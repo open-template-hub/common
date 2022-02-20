@@ -9,16 +9,19 @@ export class MailUtil {
   private readonly port: number;
   private readonly user: string;
   private readonly pass: string;
+  private readonly sslV3: boolean;
 
   constructor(
     user: string,
     pass: string,
     host: string,
+    sslV3: boolean,
     port?: number
   ) {
     this.user = user;
     this.pass = pass;
-    this.host = host
+    this.host = host;
+    this.sslV3 = sslV3
     this.port = port ? port : 465 // Default
   }
 
@@ -29,15 +32,24 @@ export class MailUtil {
    * @param body mail body
    */
   send = async (to: string, subject: string, body: string) => {
-    let transporter = nodemailer.createTransport({
+    const transportBody: any = {
       host: this.host,
       port: this.port,
       secure: true,
       auth: {
         user: this.user,
         pass: this.pass,
-      },
-    });
+      }, 
+    }
+
+    if( this.sslV3 ) {
+      transportBody.secure = false;
+      transportBody.tls = {
+        ciphers: 'SSLv3'
+      };
+    }
+
+    let transporter = nodemailer.createTransport( transportBody );
 
     console.log('> MailUtil::send => Sending Email: ', to);
 

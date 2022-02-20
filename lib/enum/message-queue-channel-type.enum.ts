@@ -6,4 +6,5 @@ export enum MessageQueueChannelType {
   BUSINESS_LOGIC = 4,
   ANALYTICS = 5,
   MAIL = 6,
+  SMS = 7
 }

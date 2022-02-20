@@ -1,9 +1,14 @@
 export type SmsActionType = {
-  example: {
-    params: SmsExampleActionParams;
+  smsType: {
+    twoFactorCodeRequest: {
+      params: TwoFactorCodeRequestParams;
+    }
   };
+  language?: string;
 };
 
-export interface SmsExampleActionParams {
-  example: string;
+export interface TwoFactorCodeRequestParams {
+  username: string;
+  phoneNumber: string;
+  twoFactorCode: string;
 }

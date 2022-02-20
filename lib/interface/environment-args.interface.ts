@@ -8,6 +8,7 @@ export interface EnvArgs {
   extendedArgs?: ExtendedArgs;
   mqArgs?: MqArgs;
   serverSpecificArgs?: any;
+  twoFactorCodeArgs: TwoFactorArgs
 }
 
 export interface TokenArgs {
@@ -45,4 +46,10 @@ export interface ExtendedArgs {
   clientUrl?: string;
   clientResetPasswordUrl?: string;
   clientVerificationSuccessUrl?: string;
+}
+
+export interface TwoFactorArgs {
+  twoFactorCodeExpire: string;
+  twoFactorCodeLength: string;  
+  twoFactorCodeType: string;
 }
