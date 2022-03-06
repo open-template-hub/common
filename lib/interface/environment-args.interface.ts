@@ -20,6 +20,8 @@ export interface TokenArgs {
   resetPasswordTokenSecret?: string;
   resetPasswordTokenExpire?: string;
   responseEncryptionSecret?: string;
+  preAuthTokenSecret?: string;
+  preAuthTokenExpire?: string;
 }
 
 export interface DbArgs {
