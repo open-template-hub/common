@@ -29,6 +29,19 @@ export class TokenUtil {
     );
   };
 
+  generatePreAuthToken = (user: User) => {
+    return jwt.sign(
+      {
+        username: user.username
+      },
+      this.args.tokenArgs?.preAuthTokenSecret || '',
+      {
+        expiresIn: this.args.tokenArgs?.preAuthTokenExpire ||
+        TokenDefaults.expire.preAuthToken
+      }
+    );
+  }
+
   /**
    * generates refresh token
    * @param user user
@@ -160,4 +173,22 @@ export class TokenUtil {
       throw e;
     }
   };
+
+  verifyPreAuthToken = ( token: string ) => {
+    try {
+      return jwt.verify(
+        token,
+        this.args.tokenArgs?.preAuthTokenSecret ?? ''
+      )
+    } catch (e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+      }
+      throw e;
+    } 
+  }
 }
