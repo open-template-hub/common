@@ -28,14 +28,16 @@ export const context = async (
   let publicPath = false;
   let adminPath = false;
 
+  const incomingPath = req.baseUrl + (req.route.path && req.route.path.length > 1 ? req.route.path : "");
+
   publicPaths?.forEach((p) => {
-    if (req.route.path === p) {
+    if (incomingPath === p) {
       publicPath = true;
     }
   });
 
   adminPaths?.forEach((p) => {
-    if (req.route.path === p) {
+    if (incomingPath === p) {
       adminPath = true;
     }
   });
