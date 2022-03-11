@@ -29,13 +29,13 @@ export const context = async (
   let adminPath = false;
 
   publicPaths?.forEach((p) => {
-    if (req.path === p) {
+    if (req.route.path === p) {
       publicPath = true;
     }
   });
 
   adminPaths?.forEach((p) => {
-    if (req.path === p) {
+    if (req.route.path === p) {
       adminPath = true;
     }
   });
