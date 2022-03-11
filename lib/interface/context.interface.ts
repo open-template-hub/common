@@ -11,7 +11,6 @@ export interface Context {
   mongodb_provider: MongoDbProvider;
   postgresql_provider: PostgreSqlProvider;
   role: UserRole;
-  isAdmin: boolean;
   username: string;
   serviceKey: string;
   token: string;

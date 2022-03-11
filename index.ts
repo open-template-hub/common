@@ -3,6 +3,7 @@
  */
 export * from './lib/constant';
 export * from './lib/context';
+export * from './lib/authorization';
 
 // action
 export * from './lib/action/analytics.action';
