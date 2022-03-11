@@ -41,6 +41,7 @@ export interface MqArgs {
   analyticsServerMessageQueueChannel?: string;
   mailServerMessageQueueChannel?: string;
   smsServerMessageQueueChannel?: string;
+  cloudIntegrationServerMessageQueueChannel?: string;
 }
 
 export interface ExtendedArgs {
