@@ -1,10 +1,9 @@
 export type CloudIntegrationActionType = {
-    example: {
-      params: CloudIntegrationExampleActionParams;
-    };
+  example: {
+    params: CloudIntegrationExampleActionParams;
   };
-  
-  export interface CloudIntegrationExampleActionParams {
-    example: string;
-  }
-  
+};
+
+export interface CloudIntegrationExampleActionParams {
+  example: string;
+}
