@@ -18,9 +18,8 @@ export function mount(args: MountArgs) {
 
   errorHandlerUtil = new ErrorHandlerUtil(debugLogUtil, args.ctxArgs.envArgs);
 
-  message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
-
   try {
+    message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
     message_queue_provider
       ?.getChannel(args.assets.mqChannelTag)
       .then((channel: any) => {
@@ -31,6 +30,9 @@ export function mount(args: MountArgs) {
           queueConsumer.onMessage,
           1
         );
+      })
+      .catch((e) => {
+        console.warn('Error while starting MQ Channel: ', e);
       });
 
     args.ctxArgs.message_queue_provider = message_queue_provider;
