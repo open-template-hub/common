@@ -23,10 +23,11 @@ export function mount(args: MountArgs) {
   message_queue_provider
     ?.getChannel(args.assets.mqChannelTag)
     .then((channel: any) => {
+      const queueConsumer = args.assets.queueConsumer.init(channel);
       message_queue_provider.consume(
         channel,
         args.assets.mqChannelTag,
-        args.assets.queueConsumer.onMessage,
+        queueConsumer.onMessage,
         1
       );
     });

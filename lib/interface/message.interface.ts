@@ -7,5 +7,6 @@ export interface QueueMessage {
 }
 
 export interface QueueConsumer {
+  init(channel: string): QueueConsumer;
   onMessage(msg: any): Promise<void>;
 }
