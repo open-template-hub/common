@@ -17,7 +17,7 @@ export const context = async (args: ContextArgs) => {
     currentUser = await authUtil.getCurrentUser(args.req);
   } catch (e) {}
 
-  const serviceKey = args.req.body.key;
+  const serviceKey = args.req?.body.key;
 
   const role = currentUser ? (currentUser.role as UserRole) : ('' as UserRole);
   const token = currentUser ? currentUser.token : '';

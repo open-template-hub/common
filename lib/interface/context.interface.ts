@@ -19,7 +19,7 @@ export interface Context {
 }
 
 export interface ContextArgs {
-  req: any;
+  req?: any;
   envArgs: EnvArgs;
   mongodb_provider?: MongoDbProvider;
   postgresql_provider?: PostgreSqlProvider;
