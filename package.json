@@ -17,6 +17,7 @@
     "amqplib": "^0.8.0",
     "crypto-js": "^4.1.1",
     "debug": "^4.3.3",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "nodemailer": "^6.7.2",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/amqplib": "^0.8.2",
     "@types/crypto-js": "^4.0.2",
+    "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.6",
     "@types/nodemailer": "^6.4.0",
     "@types/object-path": "^0.11.1",
