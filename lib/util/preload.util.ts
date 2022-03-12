@@ -13,14 +13,10 @@ export class PreloadUtil {
   ) => {
     try {
       await postgresql_provider?.preload();
-    } catch (e) {
-      console.warn('Error while preloading postgresql_provider: ', e);
-    }
-    
+    } catch (e) {}
+
     try {
       await mongodb_provider?.preload();
-    } catch (e) {
-      console.warn('Error while preloading mongodb_provider: ', e);
-    }
+    } catch (e) {}
   };
 }
