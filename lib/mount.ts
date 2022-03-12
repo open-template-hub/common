@@ -18,31 +18,6 @@ export function mount(args: MountArgs) {
   errorHandlerUtil = new ErrorHandlerUtil(debugLogUtil, args.ctxArgs.envArgs);
 
   try {
-    if (args.ctxArgs.providerAvailability.mq_enabled) {
-      message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
-      message_queue_provider
-        ?.getChannel(args.assets.mqChannelTag)
-        .then((channel: any) => {
-          const queueConsumer = args.assets.queueConsumer.init(channel);
-          message_queue_provider.consume(
-            channel,
-            args.assets.mqChannelTag,
-            queueConsumer.onMessage,
-            1
-          );
-        })
-        .catch((e) => {
-          console.warn('Error while starting MQ Channel: ', e);
-        });
-
-      args.ctxArgs.message_queue_provider = message_queue_provider;
-      console.log('MQ Loaded Successfully.');
-    }
-  } catch (e) {
-    console.warn('Error while building MQ: ', e);
-  }
-
-  try {
     if (args.ctxArgs.providerAvailability.mongo_enabled) {
       mongodb_provider = new MongoDbProvider(args.ctxArgs.envArgs);
       mongodb_provider.preload();
@@ -65,6 +40,34 @@ export function mount(args: MountArgs) {
     }
   } catch (e) {
     console.warn('Error while building PostgreSQL Provider: ', e);
+  }
+
+  try {
+    if (args.ctxArgs.providerAvailability.mq_enabled) {
+      message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
+      message_queue_provider
+        ?.getChannel(args.assets.mqChannelTag)
+        .then((channel: any) => {
+          const queueConsumer = args.assets.queueConsumer.init(
+            channel,
+            args.ctxArgs
+          );
+          message_queue_provider.consume(
+            channel,
+            args.assets.mqChannelTag,
+            queueConsumer.onMessage,
+            1
+          );
+        })
+        .catch((e) => {
+          console.warn('Error while starting MQ Channel: ', e);
+        });
+
+      args.ctxArgs.message_queue_provider = message_queue_provider;
+      console.log('MQ Loaded Successfully.');
+    }
+  } catch (e) {
+    console.warn('Error while building MQ: ', e);
   }
 
   const responseInterceptor = (
