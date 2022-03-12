@@ -7,7 +7,7 @@ import { NextFunction, Request, Response } from 'express';
 import { EncryptionUtil } from './util/encryption.util';
 import { context } from './context';
 import { MongoDbProvider } from './provider/mongo.provider';
-import { MountArgs } from './interface/mount-args.inteface';
+import { MountArgs } from './interface/mount-args.interface';
 
 export function mount(args: MountArgs) {
   var mongodb_provider: MongoDbProvider;

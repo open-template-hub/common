@@ -4,6 +4,7 @@
 export * from './lib/constant';
 export * from './lib/context';
 export * from './lib/authorization';
+export * from './lib/mount';
 
 // action
 export * from './lib/action/analytics.action';
@@ -27,6 +28,8 @@ export * from './lib/interface/environment-args.interface';
 export * from './lib/interface/http-error.interface';
 export * from './lib/interface/log-args.interface';
 export * from './lib/interface/message.interface';
+export * from './lib/interface/mount-args.interface';
+export * from './lib/interface/routing-args.interface';
 
 // provider
 export * from './lib/provider/mongo.provider';
