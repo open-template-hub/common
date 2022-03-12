@@ -5,4 +5,5 @@
 export enum UserRole {
   DEFAULT = 'DEFAULT',
   ADMIN = 'ADMIN',
+  PUBLIC = '',
 }

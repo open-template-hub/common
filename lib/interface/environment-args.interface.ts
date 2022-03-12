@@ -2,13 +2,17 @@
  * @description holds Environment Args interface
  */
 
+export interface Environment {
+  args(): EnvArgs;
+}
+
 export interface EnvArgs {
   tokenArgs?: TokenArgs;
   dbArgs?: DbArgs;
   extendedArgs?: ExtendedArgs;
   mqArgs?: MqArgs;
   serverSpecificArgs?: any;
-  twoFactorCodeArgs: TwoFactorArgs
+  twoFactorCodeArgs: TwoFactorArgs;
 }
 
 export interface TokenArgs {
@@ -53,6 +57,6 @@ export interface ExtendedArgs {
 
 export interface TwoFactorArgs {
   twoFactorCodeExpire: string;
-  twoFactorCodeLength: string;  
+  twoFactorCodeLength: string;
   twoFactorCodeType: string;
 }

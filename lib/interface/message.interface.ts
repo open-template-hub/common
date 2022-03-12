@@ -5,3 +5,7 @@ export interface QueueMessage {
   receiver: MessageQueueChannelType;
   message: any;
 }
+
+export interface QueueConsumer {
+  onMessage(msg: any): Promise<void>;
+}
