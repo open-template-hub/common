@@ -2,7 +2,6 @@ import { MessageQueueProvider } from './provider/message-queue.provider';
 import { PostgreSqlProvider } from './provider/postgre.provider';
 import { DebugLogUtil } from './util/debug-log.util';
 import { ErrorHandlerUtil } from './util/error-handler.util';
-import { PreloadUtil } from './util/preload.util';
 import { NextFunction, Request, Response } from 'express';
 import { EncryptionUtil } from './util/encryption.util';
 import { context } from './context';
@@ -19,50 +18,54 @@ export function mount(args: MountArgs) {
   errorHandlerUtil = new ErrorHandlerUtil(debugLogUtil, args.ctxArgs.envArgs);
 
   try {
-    message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
-    message_queue_provider
-      ?.getChannel(args.assets.mqChannelTag)
-      .then((channel: any) => {
-        const queueConsumer = args.assets.queueConsumer.init(channel);
-        message_queue_provider.consume(
-          channel,
-          args.assets.mqChannelTag,
-          queueConsumer.onMessage,
-          1
-        );
-      })
-      .catch((e) => {
-        console.warn('Error while starting MQ Channel: ', e);
-      });
+    if (args.ctxArgs.providerAvailability.mq_enabled) {
+      message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
+      message_queue_provider
+        ?.getChannel(args.assets.mqChannelTag)
+        .then((channel: any) => {
+          const queueConsumer = args.assets.queueConsumer.init(channel);
+          message_queue_provider.consume(
+            channel,
+            args.assets.mqChannelTag,
+            queueConsumer.onMessage,
+            1
+          );
+        })
+        .catch((e) => {
+          console.warn('Error while starting MQ Channel: ', e);
+        });
 
-    args.ctxArgs.message_queue_provider = message_queue_provider;
+      args.ctxArgs.message_queue_provider = message_queue_provider;
+      console.log('MQ Loaded Successfully.');
+    }
   } catch (e) {
     console.warn('Error while building MQ: ', e);
   }
 
   try {
-    mongodb_provider = new MongoDbProvider(args.ctxArgs.envArgs);
+    if (args.ctxArgs.providerAvailability.mongo_enabled) {
+      mongodb_provider = new MongoDbProvider(args.ctxArgs.envArgs);
+      mongodb_provider.preload();
+      args.ctxArgs.mongodb_provider = mongodb_provider;
+      console.log('MongoDB Preloaded Successfully.');
+    }
   } catch (e) {
     console.warn('Error while building MongoDB Provider: ', e);
   }
 
   try {
-    postgresql_provider = new PostgreSqlProvider(
-      args.ctxArgs.envArgs,
-      args.assets.applicationName
-    );
+    if (args.ctxArgs.providerAvailability.postgre_enabled) {
+      postgresql_provider = new PostgreSqlProvider(
+        args.ctxArgs.envArgs,
+        args.assets.applicationName
+      );
+      postgresql_provider.preload();
+      args.ctxArgs.postgresql_provider = postgresql_provider;
+      console.log('PostgreSQL Loaded Successfully.');
+    }
   } catch (e) {
     console.warn('Error while building PostgreSQL Provider: ', e);
   }
-
-  const preloadUtil = new PreloadUtil();
-
-  preloadUtil
-    .preload(mongodb_provider, postgresql_provider)
-    .then(() => console.log('DB preloads are completed.'));
-
-  args.ctxArgs.mongodb_provider = mongodb_provider;
-  args.ctxArgs.postgresql_provider = postgresql_provider;
 
   const responseInterceptor = (
     req: Request,

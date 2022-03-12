@@ -21,7 +21,14 @@ export interface Context {
 export interface ContextArgs {
   req?: any;
   envArgs: EnvArgs;
+  providerAvailability: ProviderAvailability;
   mongodb_provider?: MongoDbProvider;
   postgresql_provider?: PostgreSqlProvider;
   message_queue_provider?: MessageQueueProvider;
+}
+
+export interface ProviderAvailability {
+  mongo_enabled: boolean;
+  postgre_enabled: boolean;
+  mq_enabled: boolean;
 }
