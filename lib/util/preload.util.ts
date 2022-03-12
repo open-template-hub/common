@@ -11,7 +11,16 @@ export class PreloadUtil {
     mongodb_provider?: MongoDbProvider,
     postgresql_provider?: PostgreSqlProvider
   ) => {
-    await postgresql_provider?.preload();
-    await mongodb_provider?.preload();
+    try {
+      await postgresql_provider?.preload();
+    } catch (e) {
+      console.warn('Error while preloading postgresql_provider: ', e);
+    }
+    
+    try {
+      await mongodb_provider?.preload();
+    } catch (e) {
+      console.warn('Error while preloading mongodb_provider: ', e);
+    }
   };
 }
