@@ -10,9 +10,9 @@ import { MongoDbProvider } from './provider/mongo.provider';
 import { MountArgs } from './interface/mount-args.interface';
 
 export function mount(args: MountArgs) {
-  var mongodb_provider: MongoDbProvider;
+  var mongodb_provider: MongoDbProvider | undefined;
   var message_queue_provider: MessageQueueProvider;
-  var postgresql_provider: PostgreSqlProvider;
+  var postgresql_provider: PostgreSqlProvider | undefined;
   let errorHandlerUtil: ErrorHandlerUtil;
   const debugLogUtil = new DebugLogUtil();
 
@@ -20,32 +20,45 @@ export function mount(args: MountArgs) {
 
   message_queue_provider = new MessageQueueProvider(args.ctxArgs.envArgs);
 
-  message_queue_provider
-    ?.getChannel(args.assets.mqChannelTag)
-    .then((channel: any) => {
-      const queueConsumer = args.assets.queueConsumer.init(channel);
-      message_queue_provider.consume(
-        channel,
-        args.assets.mqChannelTag,
-        queueConsumer.onMessage,
-        1
-      );
-    });
+  try {
+    message_queue_provider
+      ?.getChannel(args.assets.mqChannelTag)
+      .then((channel: any) => {
+        const queueConsumer = args.assets.queueConsumer.init(channel);
+        message_queue_provider.consume(
+          channel,
+          args.assets.mqChannelTag,
+          queueConsumer.onMessage,
+          1
+        );
+      });
+
+    args.ctxArgs.message_queue_provider = message_queue_provider;
+  } catch (e) {
+    console.warn('Error while building MQ: ', e);
+  }
+
+  try {
+    mongodb_provider = new MongoDbProvider(args.ctxArgs.envArgs);
+  } catch (e) {
+    console.warn('Error while building MongoDB Provider: ', e);
+  }
+
+  try {
+    postgresql_provider = new PostgreSqlProvider(
+      args.ctxArgs.envArgs,
+      args.assets.applicationName
+    );
+  } catch (e) {
+    console.warn('Error while building PostgreSQL Provider: ', e);
+  }
 
   const preloadUtil = new PreloadUtil();
-
-  mongodb_provider = new MongoDbProvider(args.ctxArgs.envArgs);
-
-  postgresql_provider = new PostgreSqlProvider(
-    args.ctxArgs.envArgs,
-    args.assets.applicationName
-  );
 
   preloadUtil
     .preload(mongodb_provider, postgresql_provider)
     .then(() => console.log('DB preloads are completed.'));
 
-  args.ctxArgs.message_queue_provider = message_queue_provider;
   args.ctxArgs.mongodb_provider = mongodb_provider;
   args.ctxArgs.postgresql_provider = postgresql_provider;
 
