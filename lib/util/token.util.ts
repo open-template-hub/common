@@ -32,16 +32,15 @@ export class TokenUtil {
   generatePreAuthToken = (user: User) => {
     return jwt.sign(
       {
-        username: user.username,
+        username: user.username
       },
       this.args.tokenArgs?.preAuthTokenSecret || '',
       {
-        expiresIn:
-          this.args.tokenArgs?.preAuthTokenExpire ||
-          TokenDefaults.expire.preAuthToken,
+        expiresIn: this.args.twoFactorCodeArgs.twoFactorCodeExpire + 'sec' ||
+        TokenDefaults.expire.preAuthToken
       }
     );
-  };
+  }
 
   /**
    * generates refresh token
@@ -175,9 +174,12 @@ export class TokenUtil {
     }
   };
 
-  verifyPreAuthToken = (token: string) => {
+  verifyPreAuthToken = ( token: string ) => {
     try {
-      return jwt.verify(token, this.args.tokenArgs?.preAuthTokenSecret ?? '');
+      return jwt.verify(
+        token,
+        this.args.tokenArgs?.preAuthTokenSecret ?? ''
+      )
     } catch (e) {
       const error = e as any;
       console.error(error);
@@ -187,6 +189,6 @@ export class TokenUtil {
         error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
-    }
-  };
+    } 
+  }
 }
