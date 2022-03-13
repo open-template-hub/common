@@ -34,9 +34,9 @@ export class TokenUtil {
       {
         username: user.username
       },
-      this.args.tokenArgs?.preAuthTokenSecret || '',
+      this.args.tokenArgs?.preAuthTokenSecret || '',
       {
-        expiresIn: this.args.tokenArgs?.preAuthTokenExpire ||
+        expiresIn: this.args.twoFactorCodeArgs.twoFactorCodeExpire + 'sec' ||
         TokenDefaults.expire.preAuthToken
       }
     );
