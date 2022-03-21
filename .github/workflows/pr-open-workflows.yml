@@ -62,9 +62,9 @@ jobs:
       - name: Check for Changes
         run: |
           if git diff --exit-code; then
-            echo "changes_exist=false" >> $GITHUB_ENV"
+            echo "changes_exist=false" >> $GITHUB_ENV
           else
-            echo "changes_exist=true" >> $GITHUB_ENV"
+            echo "changes_exist=true" >> $GITHUB_ENV
           fi
 
       - name: Git Commit and Push
