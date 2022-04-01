@@ -35,7 +35,7 @@
     "@types/object-path": "^0.11.1",
     "@types/pg": "^8.6.5"
   },
-  "git repository": "https://github.com/open-template-hub/open-template-hub-common",
+  "git repository": "https://github.com/open-template-hub/common",
   "repository": {
     "type": "git",
     "url": "https://github.com/open-template-hub/common.git"
