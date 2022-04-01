@@ -14,6 +14,7 @@ export * from './lib/action/file-storage.action';
 export * from './lib/action/mail.action';
 export * from './lib/action/payment.action';
 export * from './lib/action/sms.action';
+export * from './lib/action/orchestration.action';
 export * from './lib/action/cloud-integration.action';
 
 // enum
