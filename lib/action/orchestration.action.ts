@@ -8,6 +8,7 @@ export type OrchestrationActionType = {
 };
 
 export interface DefaultNotificationParams {
+  id: string;
   username: string;
   message: string;
 }
