@@ -4,7 +4,6 @@ export type OrchestrationActionType = {
       params: DefaultNotificationParams;
     }
   };
-  language?: string;
 };
 
 export interface DefaultNotificationParams {
