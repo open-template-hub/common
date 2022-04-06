@@ -1,14 +1,7 @@
+import { NotificationParams } from './business-logic.action';
+
 export type OrchestrationActionType = {
-  notificationType: {
-    default: {
-      params: DefaultNotificationParams;
-    }
+  pushNotification: {
+    params: NotificationParams;
   };
 };
-
-export interface DefaultNotificationParams {
-  id: string;
-  date: string;
-  username: string;
-  message: string;
-}

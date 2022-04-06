@@ -1,9 +1,11 @@
 export type BusinessLogicActionType = {
-  example: {
-    params: BusinessLogicExampleActionParams;
+  notification: {
+    params: NotificationParams;
   };
 };
 
-export interface BusinessLogicExampleActionParams {
-  example: string;
+export interface NotificationParams {
+  timestamp: number;
+  username: string;
+  message: string;
 }
