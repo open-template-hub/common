@@ -16,15 +16,15 @@
     "@types/mongoose": "^5.11.97",
     "amqplib": "^0.8.0",
     "crypto-js": "^4.1.1",
-    "debug": "^4.3.3",
+    "debug": "^4.3.4",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.6",
-    "nodemailer": "^6.7.2",
+    "mongoose": "^6.2.10",
+    "nodemailer": "^6.7.3",
     "object-path": "^0.11.8",
     "pg": "^8.7.3",
     "ts-node": "^10.7.0",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.3"
   },
   "devDependencies": {
     "@types/amqplib": "^0.8.2",
