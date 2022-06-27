@@ -7,10 +7,11 @@ import { UserRole } from '../enum/user-role.enum';
 import { TokenUtil } from './token.util';
 
 export class AuthUtil {
-  constructor(
-      private readonly tokenUtil: TokenUtil,
-      private adminRoles: Array<UserRole> = [ UserRole.ADMIN ]
-  ) {
+
+  private adminRoles: Array<UserRole>;
+
+  constructor( private readonly tokenUtil: TokenUtil ) {
+    this.adminRoles = [ UserRole.ADMIN ];
   }
 
   /**
@@ -20,7 +21,7 @@ export class AuthUtil {
    */
   getCurrentUser = async ( req: { headers: { authorization: string } } ) => {
     let authToken = '';
-    var user = {};
+    let user = {};
 
     const authTokenHeader = req.headers.authorization;
     const BEARER = 'Bearer ';
@@ -46,10 +47,6 @@ export class AuthUtil {
    * @returns true if admin, else false
    */
   isAdmin = ( role: UserRole ) => {
-    if ( this.adminRoles.indexOf( role ) >= 0 ) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.adminRoles.indexOf( role ) >= 0;
   };
 }
