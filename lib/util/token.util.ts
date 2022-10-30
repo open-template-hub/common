@@ -8,7 +8,7 @@ import { EnvArgs } from '../interface/environment-args.interface';
 import { User } from '../interface/user.interface';
 
 export class TokenUtil {
-  constructor(private args: EnvArgs) {}
+  constructor(private args: EnvArgs) {} 
 
   /**
    * generates access token
@@ -19,6 +19,7 @@ export class TokenUtil {
       {
         username: user.username,
         role: user.role,
+        teamIDs: user.teamIDs
       },
       this.args.tokenArgs?.accessTokenSecret || '',
       {
@@ -51,6 +52,7 @@ export class TokenUtil {
       {
         username: user.username,
         role: user.role,
+        teamIDs: user.teamIDs
       },
       this.args.tokenArgs?.refreshTokenSecret || '',
       {
@@ -190,5 +192,64 @@ export class TokenUtil {
       }
       throw e;
     } 
+  }
+
+  generateJoinTeamToken = (username: string, teamId: string, role: "writers" | "readers") => {
+    return jwt.sign(
+      { username: username, teamId: teamId, role },
+      this.args.tokenArgs?.joinTeamTokenSecret as string,
+      {
+        expiresIn:
+          this.args.tokenArgs?.joinTeamTokenSecretExpire ||
+          TokenDefaults.expire.teamToken
+      }
+    );
+  }
+
+  verifyTeamToken = (token: string) => {
+    try {
+      return jwt.verify(
+        token,
+        this.args.tokenArgs?.preAuthTokenSecret ?? ''
+      );
+    } catch(e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+      }
+      throw e; 
+    }
+  }
+
+  addTeamToToken(currentToken: string, teamId: string) {
+    try {
+      const token = jwt.decode(currentToken) as any;
+
+      const tokenWithTeam = jwt.sign(
+        {
+          username: token.username,
+          role: token?.normalize,
+          teamIDs: token.teamIDs ? token.teamIDs.push(teamId) : [teamId]
+        },
+        this.args.tokenArgs?.accessTokenSecret || '',
+        {
+          expiresIn: token.exp
+        }
+      )
+
+      return tokenWithTeam
+    } catch(e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+      }
+      throw e;
+    }
   }
 }

@@ -15,7 +15,7 @@ export function mount(args: MountArgs) {
   let errorHandlerUtil: ErrorHandlerUtil;
   const debugLogUtil = new DebugLogUtil();
 
-  errorHandlerUtil = new ErrorHandlerUtil(debugLogUtil, args.ctxArgs.envArgs);
+  errorHandlerUtil = new ErrorHandlerUtil(args.ctxArgs.envArgs);
 
   try {
     if (args.ctxArgs.providerAvailability.mongo_enabled) {

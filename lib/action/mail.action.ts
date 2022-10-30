@@ -37,3 +37,10 @@ export interface AccountVerificationMailActionParams {
   accountVerificationToken: string;
   clientVerificationSuccessUrl: string;
 }
+
+export interface JoinTeamMailActionParams {
+  user: string;
+  email: string;
+  joinTeamToken: string;
+  teamId: string;
+}

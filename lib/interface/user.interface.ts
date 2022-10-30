@@ -9,4 +9,5 @@ export interface User {
   role: UserRole;
   password: string;
   email: string;
+  teamIDs: string[];
 }

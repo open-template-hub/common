@@ -25,6 +25,8 @@ export interface TokenArgs {
   resetPasswordTokenExpire?: string;
   responseEncryptionSecret?: string;
   preAuthTokenSecret?: string;
+  joinTeamTokenSecret?: string;
+  joinTeamTokenSecretExpire?: string;
 }
 
 export interface DbArgs {

@@ -21,7 +21,8 @@ export const TokenDefaults = {
     accessToken: '1hour',
     refreshToken: '30days',
     resetPasswordToken: '1day',
-    preAuthToken: '90sec'
+    preAuthToken: '90sec',
+    teamToken: "30days"
   },
 };
 
