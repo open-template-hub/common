@@ -31,6 +31,7 @@ export * from './lib/interface/log-args.interface';
 export * from './lib/interface/message.interface';
 export * from './lib/interface/mount-args.interface';
 export * from './lib/interface/routing-args.interface';
+export * from './lib/interface/query-filters.interface';
 
 // provider
 export * from './lib/provider/mongo.provider';
