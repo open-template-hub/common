@@ -13,9 +13,8 @@ export function mount(args: MountArgs) {
   let message_queue_provider: MessageQueueProvider;
   let postgresql_provider: PostgreSqlProvider | undefined;
   let errorHandlerUtil: ErrorHandlerUtil;
-  const debugLogUtil = new DebugLogUtil();
 
-  errorHandlerUtil = new ErrorHandlerUtil(debugLogUtil, args.ctxArgs.envArgs);
+  errorHandlerUtil = new ErrorHandlerUtil(args.ctxArgs.envArgs);
 
   try {
     if (args.ctxArgs.providerAvailability.mongo_enabled) {
