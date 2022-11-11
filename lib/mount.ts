@@ -9,9 +9,9 @@ import { MongoDbProvider } from './provider/mongo.provider';
 import { MountArgs } from './interface/mount-args.interface';
 
 export function mount(args: MountArgs) {
-  var mongodb_provider: MongoDbProvider | undefined;
-  var message_queue_provider: MessageQueueProvider;
-  var postgresql_provider: PostgreSqlProvider | undefined;
+  let mongodb_provider: MongoDbProvider | undefined;
+  let message_queue_provider: MessageQueueProvider;
+  let postgresql_provider: PostgreSqlProvider | undefined;
   let errorHandlerUtil: ErrorHandlerUtil;
   const debugLogUtil = new DebugLogUtil();
 
@@ -71,11 +71,11 @@ export function mount(args: MountArgs) {
   }
 
   const responseInterceptor = (
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    var originalSend = res.send;
+    const originalSend = res.send;
     const encryptionUtil = new EncryptionUtil(args.ctxArgs.envArgs);
     res.send = function () {
       console.log('Starting Encryption: ', new Date());
@@ -116,9 +116,8 @@ export function mount(args: MountArgs) {
   // Use for error handling
   args.app.use(function (
     err: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction
+    _req: Request,
+    res: Response
   ) {
     let error = errorHandlerUtil.handle(err);
     res.status(error.code).json({ message: error.message });

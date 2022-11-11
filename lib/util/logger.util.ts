@@ -13,19 +13,8 @@ class LoggerUtil {
   log = (args: LogArgs) => {
     try {
       if (!args.callerMethod) {
-        try {
-          throw new Error();
-        } catch (e) {
-          let regExp = /(\w+)@|at (\w+) \(/g;
-          let stack = (e as any).stack;
-          let callerMethod = regExp.exec(stack);
-
-          if (callerMethod) {
-            args.callerMethod = callerMethod[1] || callerMethod[2];
-          } else {
-            args.callerMethod = 'NonSpecifiedMethod';
-          }
-        }
+        // https://sonarcloud.io/organizations/open-template-hub/rules?open=typescript%3AS5852&rule_key=typescript%3AS5852
+        args.callerMethod = 'NonSpecifiedMethod';
       }
 
       let callerType;

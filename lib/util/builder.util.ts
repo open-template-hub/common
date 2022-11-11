@@ -6,7 +6,11 @@ import fs from 'fs';
 import { DebugLogUtil } from '../util/debug-log.util';
 
 export class BuilderUtil {
-  constructor( private debugLogUtil = new DebugLogUtil() ) {
+
+  private debugLogUtil: DebugLogUtil;
+
+  constructor() {
+    this.debugLogUtil = new DebugLogUtil();
   }
 
   /**
@@ -15,7 +19,7 @@ export class BuilderUtil {
    * @param params parameters
    */
   buildTemplateFromFile = ( filePath: string, params?: Map<string, string> ) => {
-    var template = '';
+    let template = '';
 
     try {
       template = fs.readFileSync( filePath, 'utf-8' );
@@ -54,7 +58,7 @@ export class BuilderUtil {
    * @param params parameters
    */
   buildTemplateFromString = ( body: string, params?: Map<string, string> ) => {
-    if( params ) {
+    if ( params ) {
       params.forEach( ( value: string, key: string ) => {
         body = body.replace( key, value );
       } );
@@ -63,5 +67,5 @@ export class BuilderUtil {
     this.debugLogUtil.log( 'Successfully build template' );
 
     return body;
-  }
+  };
 }
