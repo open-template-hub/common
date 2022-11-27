@@ -1,3 +1,5 @@
+import { Team } from "../interface/team.interface";
+
 export type MailActionType = {
   mailType: {
     contactUs: {
@@ -36,4 +38,11 @@ export interface AccountVerificationMailActionParams {
   email: string;
   accountVerificationToken: string;
   clientVerificationSuccessUrl: string;
+}
+
+export interface JoinTeamMailActionParams {
+  user: string;
+  email: string;
+  joinTeamToken: string;
+  team: Team;
 }

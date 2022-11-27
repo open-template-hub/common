@@ -5,10 +5,11 @@
 import jwt from 'jsonwebtoken';
 import { ResponseCode, TokenDefaults } from '../constant';
 import { EnvArgs } from '../interface/environment-args.interface';
+import { Team } from '../interface/team.interface';
 import { User } from '../interface/user.interface';
 
 export class TokenUtil {
-  constructor(private args: EnvArgs) {}
+  constructor(private args: EnvArgs) {} 
 
   /**
    * generates access token
@@ -19,6 +20,7 @@ export class TokenUtil {
       {
         username: user.username,
         role: user.role,
+        teams: user.teams
       },
       this.args.tokenArgs?.accessTokenSecret || '',
       {
@@ -51,6 +53,7 @@ export class TokenUtil {
       {
         username: user.username,
         role: user.role,
+        teams: user.teams
       },
       this.args.tokenArgs?.refreshTokenSecret || '',
       {
@@ -190,5 +193,86 @@ export class TokenUtil {
       }
       throw e;
     } 
+  }
+
+  generateJoinTeamToken = (username: string, team: Team) => {
+    return jwt.sign(
+      { username: username, team: team },
+      this.args.tokenArgs?.joinTeamTokenSecret as string,
+      {
+        expiresIn:
+          this.args.tokenArgs?.joinTeamTokenSecretExpire ||
+          TokenDefaults.expire.teamToken
+      }
+    );
+  }
+
+  verifyTeamToken = (token: string) => {
+    try {
+      return jwt.verify(
+        token,
+        this.args.tokenArgs?.preAuthTokenSecret ?? ''
+      );
+    } catch(e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+      }
+      throw e; 
+    }
+  }
+
+  addTeamToToken(currentToken: string, team: any ) {
+    try {
+      const token = jwt.decode(currentToken) as any;
+
+      let tokenTeamArray = []
+      if(token.teams) {
+        tokenTeamArray = token.teams; 
+      }
+      tokenTeamArray.push(team)
+
+      const accessTokenWithTeam = jwt.sign(
+        {
+          username: token.username,
+          role: token.role,
+          teams: tokenTeamArray
+        },
+        this.args.tokenArgs?.accessTokenSecret || '',
+        {
+          expiresIn: token.exp
+        }
+      )
+
+      const refreshTokenWithTeam = jwt.sign(
+        {
+          username: token.username,
+          role: token.role,
+          teams: tokenTeamArray
+        },
+        this.args.tokenArgs?.refreshTokenSecret || '',
+        {
+          expiresIn:
+            this.args.tokenArgs?.refreshTokenExpire ||
+            TokenDefaults.expire.refreshToken,
+        }
+      )
+
+      return { accessTokenWithTeam,refreshTokenWithTeam }
+
+
+    } catch(e) {
+      const error = e as any;
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if (error.name === 'TokenExpiredError') {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+      }
+      throw e;
+    }
   }
 }

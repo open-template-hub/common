@@ -2,11 +2,13 @@
  * @description holds context interface
  */
 
+import { TeamRole } from '../enum/team-role.enum';
 import { UserRole } from '../enum/user-role.enum';
 import { MessageQueueProvider } from '../provider/message-queue.provider';
 import { MongoDbProvider } from '../provider/mongo.provider';
 import { PostgreSqlProvider } from '../provider/postgre.provider';
 import { EnvArgs } from './environment-args.interface';
+import { Team } from "./team.interface";
 
 export interface Context {
   mongodb_provider: MongoDbProvider;
@@ -16,6 +18,7 @@ export interface Context {
   serviceKey: string;
   token: string;
   message_queue_provider: MessageQueueProvider;
+  teams: Team[];
 }
 
 export interface ContextArgs {
