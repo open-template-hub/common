@@ -3,9 +3,11 @@
  */
 
 import { UserRole } from './enum/user-role.enum';
+import { TeamRole } from './enum/team-role.enum';
 import { Context, ContextArgs } from './interface/context.interface';
 import { AuthUtil } from './util/auth.util';
 import { TokenUtil } from './util/token.util';
+import { Team } from './interface/team.interface';
 
 export const context = async ( args: ContextArgs ) => {
   const tokenUtil = new TokenUtil( args.envArgs );
@@ -25,6 +27,7 @@ export const context = async ( args: ContextArgs ) => {
 
   const role = currentUser ? ( currentUser.role as UserRole ) : ( '' as UserRole );
   const token = currentUser ? currentUser.token : '';
+  const teams = currentUser ? ( currentUser.teams as Team ) : [];
 
   return {
     mongodb_provider: args.mongodb_provider,
@@ -34,5 +37,6 @@ export const context = async ( args: ContextArgs ) => {
     serviceKey,
     token,
     message_queue_provider: args.message_queue_provider,
+    teams
   } as Context;
 };
