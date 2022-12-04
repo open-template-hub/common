@@ -1,5 +1,5 @@
 export enum TeamRole {
-    creator = "creators",
-    writer = "writers",
-    reader = "readers"
+    CREATOR = "creators",
+    WRITER = "writers",
+    READER = "readers"
 }
