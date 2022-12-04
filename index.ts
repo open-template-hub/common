@@ -21,6 +21,7 @@ export * from './lib/action/cloud-integration.action';
 export * from './lib/enum/user-role.enum';
 export * from './lib/enum/log-severity.enum';
 export * from './lib/enum/message-queue-channel-type.enum';
+export * from './lib/enum/team-role.enum';
 
 // interface
 export * from './lib/interface/context.interface';
