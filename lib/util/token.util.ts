@@ -211,7 +211,7 @@ export class TokenUtil {
     try {
       return jwt.verify(
         token,
-        this.args.tokenArgs?.preAuthTokenSecret ?? ''
+        this.args.tokenArgs?.joinTeamTokenSecret ?? ''
       );
     } catch(e) {
       const error = e as any;
