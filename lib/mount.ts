@@ -74,11 +74,6 @@ export function mount(args: MountArgs) {
   function onCloseCleanUp() {
     args.ctxArgs.message_queue_provider?.disconnect();
     console.log('Queue connection cleaned up..');
-
-    args.app.close(() => {
-      console.log('HTTP server closed.');
-      process.exit(0);
-    });
   }
 
   // On Application Close
