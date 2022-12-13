@@ -7,12 +7,19 @@ import { QueueMessage } from '../interface/message.interface';
 import * as Queue from 'amqplib';
 
 export class MessageQueueProvider {
+  private _connection: any;
+  private _channel: any;
+
   constructor(private envArgs: EnvArgs) {}
 
   getConnection = async () => {
-    return Queue.connect(
-      this.envArgs.mqArgs?.messageQueueConnectionUrl as string
-    );
+    if (!this._connection) {
+      this._connection = Queue.connect(
+        this.envArgs.mqArgs?.messageQueueConnectionUrl as string
+      );
+    }
+
+    return this._connection;
   };
 
   publish = async (message: QueueMessage, channelTag: string) => {
@@ -24,11 +31,11 @@ export class MessageQueueProvider {
   };
 
   consume = async (
-    channel: any,
     channelTag: string,
     onMessage: any,
     messageCount: number
   ) => {
+    const channel = await this.getChannel(channelTag);
     channel.prefetch(messageCount);
     channel.consume(channelTag, onMessage, {
       // manual acknowledgment mode
@@ -37,12 +44,23 @@ export class MessageQueueProvider {
   };
 
   getChannel = async (channelTag: string) => {
-    const connection = await this.getConnection();
-    const channel = await connection.createChannel();
-    await channel.assertQueue(channelTag, {
-      // to do not lose channel on restart
-      durable: true,
-    });
-    return channel;
+    if (!this._channel) {
+      const connection = await this.getConnection();
+      const channel = await connection.createChannel();
+      await channel.assertQueue(channelTag, {
+        // to do not lose channel on restart
+        durable: true,
+      });
+      this._channel = channel;
+    }
+
+    return this._channel;
+  };
+
+  disconnect = async () => {
+    await this._channel.close();
+    await this._connection.close();
+    this._channel = null;
+    this._connection = null;
   };
 }

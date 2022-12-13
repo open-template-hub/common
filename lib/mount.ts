@@ -52,7 +52,6 @@ export function mount(args: MountArgs) {
             args.ctxArgs
           );
           message_queue_provider.consume(
-            channel,
             args.assets.mqChannelTag,
             queueConsumer.onMessage,
             1
@@ -68,6 +67,22 @@ export function mount(args: MountArgs) {
   } catch (e) {
     console.warn('Error while building MQ: ', e);
   }
+
+  /**
+   * Cleanup operations on close
+   */
+  function onCloseCleanUp() {
+    args.ctxArgs.message_queue_provider?.disconnect();
+    console.log('Queue connection cleaned up..');
+
+    args.app.close(() => {
+      console.log('HTTP server closed.');
+      process.exit(0);
+    });
+  }
+
+  // On Application Close
+  process.on('SIGTERM', onCloseCleanUp);
 
   const responseInterceptor = (
     _req: Request,
@@ -113,11 +128,7 @@ export function mount(args: MountArgs) {
   }
 
   // Use for error handling
-  args.app.use(function (
-    err: Error,
-    _req: Request,
-    res: Response
-  ) {
+  args.app.use(function (err: Error, _req: Request, res: Response) {
     let error = errorHandlerUtil.handle(err);
     res.status(error.code).json({ message: error.message });
   });
