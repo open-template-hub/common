@@ -22,7 +22,7 @@ export const teamAuthorizedBy = (roles: Array<TeamRole>) => {
     let targetTeam: any | undefined = undefined;
 
     for(let team of context.teams) {
-      if((team as any).team_id === _req.body.teamId) {
+      if((team as any).team_id === (_req.body.teamId ?? _req.query.teamId)) {
         targetTeam = team
       }
     }

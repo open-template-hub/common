@@ -44,5 +44,6 @@ export interface JoinTeamMailActionParams {
   user: string;
   email: string;
   joinTeamToken: string;
-  team: Team;
+  teamId: string;
+  teamName: string;
 }
