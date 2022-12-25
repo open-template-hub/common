@@ -52,9 +52,7 @@ export interface MqArgs {
 export interface ExtendedArgs {
   regression?: boolean;
   clientUrl?: string;
-  joinTeamUrl?: string;
-  clientResetPasswordUrl?: string;
-  clientVerificationSuccessUrl?: string;
+  whiteListUrls?: string;
 }
 
 export interface TwoFactorArgs {
