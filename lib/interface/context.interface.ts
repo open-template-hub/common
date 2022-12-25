@@ -2,7 +2,6 @@
  * @description holds context interface
  */
 
-import { TeamRole } from '../enum/team-role.enum';
 import { UserRole } from '../enum/user-role.enum';
 import { MessageQueueProvider } from '../provider/message-queue.provider';
 import { MongoDbProvider } from '../provider/mongo.provider';

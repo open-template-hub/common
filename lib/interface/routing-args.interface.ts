@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import Router from 'express-serve-static-core';
 
 export interface Route {
   name: string;
-  router: Router;
+  router: typeof Router;
 }
 
 export interface RouteArgs {
