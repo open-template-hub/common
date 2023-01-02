@@ -11,4 +11,5 @@ export interface NotificationParams {
   sender: string;
   category: string;
   image?: string;
+  payload?: any;
 }
