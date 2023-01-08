@@ -36,12 +36,12 @@ export const teamAuthorizedBy = (roles: Array<TeamRole>) => {
       userRole = TeamRole.CREATOR;
     }
     else {
-      const reader = context.teams?.find((team: any) => {
-        return team.username === context.username;
+      const reader = targetTeam.readers.find((team: any) => {
+        return team.username === context.username && team.isVerified;
       });
 
-      const writer = context.teams?.find((team: any) => {
-        return team.username === context.username
+      const writer = targetTeam.writers.find((team: any) => {
+        return team.username === context.username && team.isVerified;
       })
 
       if (reader) {
