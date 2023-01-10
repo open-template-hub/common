@@ -12,17 +12,17 @@ export class MailUtil {
   private readonly sslV3: boolean;
 
   constructor(
-    user: string,
-    pass: string,
-    host: string,
-    sslV3: boolean,
-    port?: number
+      user: string,
+      pass: string,
+      host: string,
+      sslV3: boolean,
+      port?: number
   ) {
     this.user = user;
     this.pass = pass;
     this.host = host;
-    this.sslV3 = sslV3
-    this.port = port ? port : 465 // Default
+    this.sslV3 = sslV3;
+    this.port = port ? port : 465; // Default
   }
 
   /**
@@ -31,7 +31,7 @@ export class MailUtil {
    * @param subject mail subject
    * @param body mail body
    */
-  send = async (to: string, subject: string, body: string) => {
+  send = async ( to: string, subject: string, body: string ) => {
     const transportBody: any = {
       host: this.host,
       port: this.port,
@@ -39,10 +39,10 @@ export class MailUtil {
       auth: {
         user: this.user,
         pass: this.pass,
-      }, 
-    }
+      },
+    };
 
-    if( this.sslV3 ) {
+    if ( this.sslV3 ) {
       transportBody.secure = false;
       transportBody.tls = {
         ciphers: 'SSLv3'
@@ -51,13 +51,13 @@ export class MailUtil {
 
     let transporter = nodemailer.createTransport( transportBody );
 
-    console.log('> MailUtil::send => Sending Email: ', to);
+    console.log( '> MailUtil::send => Sending Email: ', to );
 
-    await transporter.sendMail({
+    await transporter.sendMail( {
       from: this.user,
       to,
       subject: subject,
       html: body,
-    });
+    } );
   };
 }

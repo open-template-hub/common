@@ -3,11 +3,10 @@
  */
 
 import { UserRole } from './enum/user-role.enum';
-import { TeamRole } from './enum/team-role.enum';
 import { Context, ContextArgs } from './interface/context.interface';
+import { Team } from './interface/team.interface';
 import { AuthUtil } from './util/auth.util';
 import { TokenUtil } from './util/token.util';
-import { Team } from './interface/team.interface';
 
 export const context = async ( args: ContextArgs ) => {
   const tokenUtil = new TokenUtil( args.envArgs );

@@ -8,6 +8,7 @@ export interface QueueMessage {
 }
 
 export interface QueueConsumer {
-  init(channel: string, ctxArgs: ContextArgs): QueueConsumer;
-  onMessage(msg: any): Promise<void>;
+  init( channel: string, ctxArgs: ContextArgs ): QueueConsumer;
+
+  onMessage( msg: any ): Promise<void>;
 }
