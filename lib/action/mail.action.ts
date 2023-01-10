@@ -1,5 +1,3 @@
-import { Team } from "../interface/team.interface";
-
 export type MailActionType = {
   mailType: {
     contactUs: {

@@ -7,7 +7,7 @@ import { MessageQueueProvider } from '../provider/message-queue.provider';
 import { MongoDbProvider } from '../provider/mongo.provider';
 import { PostgreSqlProvider } from '../provider/postgre.provider';
 import { EnvArgs } from './environment-args.interface';
-import { Team } from "./team.interface";
+import { Team } from './team.interface';
 
 export interface Context {
   mongodb_provider: MongoDbProvider;

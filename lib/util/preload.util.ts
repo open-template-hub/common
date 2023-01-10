@@ -8,15 +8,17 @@ export class PreloadUtil {
    * @param postgresql_provider postgresql provider
    */
   preload = async (
-    mongodb_provider?: MongoDbProvider,
-    postgresql_provider?: PostgreSqlProvider
+      mongodb_provider?: MongoDbProvider,
+      postgresql_provider?: PostgreSqlProvider
   ) => {
     try {
       await postgresql_provider?.preload();
-    } catch (e) {}
+    } catch ( e ) {
+    }
 
     try {
       await mongodb_provider?.preload();
-    } catch (e) {}
+    } catch ( e ) {
+    }
   };
 }

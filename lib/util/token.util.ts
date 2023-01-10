@@ -9,60 +9,61 @@ import { Team } from '../interface/team.interface';
 import { User } from '../interface/user.interface';
 
 export class TokenUtil {
-  constructor(private args: EnvArgs) {} 
+  constructor( private args: EnvArgs ) {
+  }
 
   /**
    * generates access token
    * @param user user
    */
-  generateAccessToken = (user: User) => {
+  generateAccessToken = ( user: User ) => {
     return jwt.sign(
-      {
-        username: user.username,
-        role: user.role,
-        teams: user.teams
-      },
-      this.args.tokenArgs?.accessTokenSecret || '',
-      {
-        expiresIn:
-          this.args.tokenArgs?.accessTokenExpire ||
-          TokenDefaults.expire.accessToken,
-      }
+        {
+          username: user.username,
+          role: user.role,
+          teams: user.teams
+        },
+        this.args.tokenArgs?.accessTokenSecret || '',
+        {
+          expiresIn:
+              this.args.tokenArgs?.accessTokenExpire ||
+              TokenDefaults.expire.accessToken,
+        }
     );
   };
 
-  generatePreAuthToken = (user: User) => {
+  generatePreAuthToken = ( user: User ) => {
     return jwt.sign(
-      {
-        username: user.username
-      },
-      this.args.tokenArgs?.preAuthTokenSecret || '',
-      {
-        expiresIn: this.args.twoFactorCodeArgs.twoFactorCodeExpire + 'sec' ||
-        TokenDefaults.expire.preAuthToken
-      }
+        {
+          username: user.username
+        },
+        this.args.tokenArgs?.preAuthTokenSecret || '',
+        {
+          expiresIn: this.args.twoFactorCodeArgs.twoFactorCodeExpire + 'sec' ||
+              TokenDefaults.expire.preAuthToken
+        }
     );
-  }
+  };
 
   /**
    * generates refresh token
    * @param user user
    */
-  generateRefreshToken = (user: User) => {
+  generateRefreshToken = ( user: User ) => {
     const token = jwt.sign(
-      {
-        username: user.username,
-        role: user.role,
-        teams: user.teams
-      },
-      this.args.tokenArgs?.refreshTokenSecret || '',
-      {
-        expiresIn:
-          this.args.tokenArgs?.refreshTokenExpire ||
-          TokenDefaults.expire.refreshToken,
-      }
+        {
+          username: user.username,
+          role: user.role,
+          teams: user.teams
+        },
+        this.args.tokenArgs?.refreshTokenSecret || '',
+        {
+          expiresIn:
+              this.args.tokenArgs?.refreshTokenExpire ||
+              TokenDefaults.expire.refreshToken,
+        }
     );
-    const { exp } = jwt.decode(token) as any;
+    const { exp } = jwt.decode( token ) as any;
     return { token: token, exp: exp };
   };
 
@@ -70,10 +71,10 @@ export class TokenUtil {
    * generates verification token
    * @param user user
    */
-  generateVerificationToken = (user: User) => {
+  generateVerificationToken = ( user: User ) => {
     return jwt.sign(
-      { username: user.username },
-      this.args.tokenArgs?.verificationTokenSecret || ''
+        { username: user.username },
+        this.args.tokenArgs?.verificationTokenSecret || ''
     );
   };
 
@@ -81,15 +82,15 @@ export class TokenUtil {
    * generates password reset token
    * @param user user
    */
-  generatePasswordResetToken = (user: User) => {
+  generatePasswordResetToken = ( user: User ) => {
     return jwt.sign(
-      { username: user.username },
-      this.args.tokenArgs?.resetPasswordTokenSecret + user.password,
-      {
-        expiresIn:
-          this.args.tokenArgs?.resetPasswordTokenExpire ||
-          TokenDefaults.expire.resetPasswordToken,
-      }
+        { username: user.username },
+        this.args.tokenArgs?.resetPasswordTokenSecret + user.password,
+        {
+          expiresIn:
+              this.args.tokenArgs?.resetPasswordTokenExpire ||
+              TokenDefaults.expire.resetPasswordToken,
+        }
     );
   };
 
@@ -97,15 +98,15 @@ export class TokenUtil {
    * verifies access token
    * @param token token
    */
-  verifyAccessToken = (token: string) => {
+  verifyAccessToken = ( token: string ) => {
     try {
-      return jwt.verify(token, this.args.tokenArgs?.accessTokenSecret || '');
-    } catch (e) {
+      return jwt.verify( token, this.args.tokenArgs?.accessTokenSecret || '' );
+    } catch ( e ) {
       const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
         error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
+      } else if ( error.name === 'TokenExpiredError' ) {
         error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
@@ -116,15 +117,15 @@ export class TokenUtil {
    * verifies refresh token
    * @param token token
    */
-  verifyRefreshToken = (token: string) => {
+  verifyRefreshToken = ( token: string ) => {
     try {
-      return jwt.verify(token, this.args.tokenArgs?.refreshTokenSecret || '');
-    } catch (e) {
+      return jwt.verify( token, this.args.tokenArgs?.refreshTokenSecret || '' );
+    } catch ( e ) {
       const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
         error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
+      } else if ( error.name === 'TokenExpiredError' ) {
         error.responseCode = ResponseCode.UNAUTHORIZED;
         error.message = 'refresh token expired';
       }
@@ -136,18 +137,18 @@ export class TokenUtil {
    * verifies verification token
    * @param token token
    */
-  verifyVerificationToken = (token: string) => {
+  verifyVerificationToken = ( token: string ) => {
     try {
       return jwt.verify(
-        token,
-        this.args.tokenArgs?.verificationTokenSecret || ''
+          token,
+          this.args.tokenArgs?.verificationTokenSecret || ''
       );
-    } catch (e) {
+    } catch ( e ) {
       const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
         error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
+      } else if ( error.name === 'TokenExpiredError' ) {
         error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
@@ -159,18 +160,18 @@ export class TokenUtil {
    * @param token token
    * @param currentPassword current password
    */
-  verifyPasswordResetToken = (token: string, currentPassword: string) => {
+  verifyPasswordResetToken = ( token: string, currentPassword: string ) => {
     try {
       return jwt.verify(
-        token,
-        this.args.tokenArgs?.resetPasswordTokenSecret + currentPassword
+          token,
+          this.args.tokenArgs?.resetPasswordTokenSecret + currentPassword
       );
-    } catch (e) {
+    } catch ( e ) {
       const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
         error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
+      } else if ( error.name === 'TokenExpiredError' ) {
         error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
@@ -180,96 +181,96 @@ export class TokenUtil {
   verifyPreAuthToken = ( token: string ) => {
     try {
       return jwt.verify(
-        token,
-        this.args.tokenArgs?.preAuthTokenSecret ?? ''
-      )
-    } catch (e) {
+          token,
+          this.args.tokenArgs?.preAuthTokenSecret ?? ''
+      );
+    } catch ( e ) {
       const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
         error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
+      } else if ( error.name === 'TokenExpiredError' ) {
         error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;
-    } 
-  }
-
-  generateJoinTeamToken = (username: string, team: Team) => {
-    return jwt.sign(
-      { username: username, team: team },
-      this.args.tokenArgs?.joinTeamTokenSecret as string,
-      {
-        expiresIn:
-          this.args.tokenArgs?.joinTeamTokenSecretExpire ||
-          TokenDefaults.expire.teamToken
-      }
-    );
-  }
-
-  verifyTeamToken = (token: string) => {
-    try {
-      return jwt.verify(
-        token,
-        this.args.tokenArgs?.joinTeamTokenSecret ?? ''
-      );
-    } catch(e) {
-      const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
-        error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
-        error.responseCode = ResponseCode.UNAUTHORIZED;
-      }
-      throw e; 
     }
-  }
+  };
 
-  addTeamToToken(currentToken: string, team: any ) {
-    try {
-      const token = jwt.decode(currentToken) as any;
-
-      let tokenTeamArray = []
-      if(token.teams) {
-        tokenTeamArray = token.teams; 
-      }
-      tokenTeamArray.push(team)
-
-      const accessTokenWithTeam = jwt.sign(
-        {
-          username: token.username,
-          role: token.role,
-          teams: tokenTeamArray
-        },
-        this.args.tokenArgs?.accessTokenSecret || '',
-        {
-          expiresIn: token.exp
-        }
-      )
-
-      const refreshTokenWithTeam = jwt.sign(
-        {
-          username: token.username,
-          role: token.role,
-          teams: tokenTeamArray
-        },
-        this.args.tokenArgs?.refreshTokenSecret || '',
+  generateJoinTeamToken = ( username: string, team: Team ) => {
+    return jwt.sign(
+        { username: username, team: team },
+        this.args.tokenArgs?.joinTeamTokenSecret as string,
         {
           expiresIn:
-            this.args.tokenArgs?.refreshTokenExpire ||
-            TokenDefaults.expire.refreshToken,
+              this.args.tokenArgs?.joinTeamTokenSecretExpire ||
+              TokenDefaults.expire.teamToken
         }
-      )
+    );
+  };
 
-      return { accessTokenWithTeam,refreshTokenWithTeam }
-
-
-    } catch(e) {
+  verifyTeamToken = ( token: string ) => {
+    try {
+      return jwt.verify(
+          token,
+          this.args.tokenArgs?.joinTeamTokenSecret ?? ''
+      );
+    } catch ( e ) {
       const error = e as any;
-      console.error(error);
-      if (error.name === 'JsonWebTokenError') {
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
         error.responseCode = ResponseCode.FORBIDDEN;
-      } else if (error.name === 'TokenExpiredError') {
+      } else if ( error.name === 'TokenExpiredError' ) {
+        error.responseCode = ResponseCode.UNAUTHORIZED;
+      }
+      throw e;
+    }
+  };
+
+  addTeamToToken( currentToken: string, team: any ) {
+    try {
+      const token = jwt.decode( currentToken ) as any;
+
+      let tokenTeamArray = [];
+      if ( token.teams ) {
+        tokenTeamArray = token.teams;
+      }
+      tokenTeamArray.push( team );
+
+      const accessTokenWithTeam = jwt.sign(
+          {
+            username: token.username,
+            role: token.role,
+            teams: tokenTeamArray
+          },
+          this.args.tokenArgs?.accessTokenSecret || '',
+          {
+            expiresIn: token.exp
+          }
+      );
+
+      const refreshTokenWithTeam = jwt.sign(
+          {
+            username: token.username,
+            role: token.role,
+            teams: tokenTeamArray
+          },
+          this.args.tokenArgs?.refreshTokenSecret || '',
+          {
+            expiresIn:
+                this.args.tokenArgs?.refreshTokenExpire ||
+                TokenDefaults.expire.refreshToken,
+          }
+      );
+
+      return { accessTokenWithTeam, refreshTokenWithTeam };
+
+
+    } catch ( e ) {
+      const error = e as any;
+      console.error( error );
+      if ( error.name === 'JsonWebTokenError' ) {
+        error.responseCode = ResponseCode.FORBIDDEN;
+      } else if ( error.name === 'TokenExpiredError' ) {
         error.responseCode = ResponseCode.UNAUTHORIZED;
       }
       throw e;

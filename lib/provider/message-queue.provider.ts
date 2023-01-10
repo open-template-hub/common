@@ -2,55 +2,56 @@
  * @description holds message queue provider
  */
 
+import * as Queue from 'amqplib';
 import { EnvArgs } from '../interface/environment-args.interface';
 import { QueueMessage } from '../interface/message.interface';
-import * as Queue from 'amqplib';
 
 export class MessageQueueProvider {
   private _connection: any;
   private _channel: any;
 
-  constructor(private envArgs: EnvArgs) {}
+  constructor( private envArgs: EnvArgs ) {
+  }
 
   getConnection = async () => {
-    if (!this._connection) {
+    if ( !this._connection ) {
       this._connection = Queue.connect(
-        this.envArgs.mqArgs?.messageQueueConnectionUrl as string
+          this.envArgs.mqArgs?.messageQueueConnectionUrl as string
       );
     }
 
     return this._connection;
   };
 
-  publish = async (message: QueueMessage, channelTag: string) => {
-    const channel = await this.getChannel(channelTag);
-    channel.sendToQueue(channelTag, Buffer.from(JSON.stringify(message)), {
+  publish = async ( message: QueueMessage, channelTag: string ) => {
+    const channel = await this.getChannel( channelTag );
+    channel.sendToQueue( channelTag, Buffer.from( JSON.stringify( message ) ), {
       // to do not lose message on restart
       persistent: true,
-    });
+    } );
   };
 
   consume = async (
-    channelTag: string,
-    onMessage: any,
-    messageCount: number
+      channelTag: string,
+      onMessage: any,
+      messageCount: number
   ) => {
-    const channel = await this.getChannel(channelTag);
-    channel.prefetch(messageCount);
-    channel.consume(channelTag, onMessage, {
+    const channel = await this.getChannel( channelTag );
+    channel.prefetch( messageCount );
+    channel.consume( channelTag, onMessage, {
       // manual acknowledgment mode
       noAck: false,
-    });
+    } );
   };
 
-  getChannel = async (channelTag: string) => {
-    if (!this._channel) {
+  getChannel = async ( channelTag: string ) => {
+    if ( !this._channel ) {
       const connection = await this.getConnection();
       const channel = await connection.createChannel();
-      await channel.assertQueue(channelTag, {
+      await channel.assertQueue( channelTag, {
         // to do not lose channel on restart
         durable: true,
-      });
+      } );
       this._channel = channel;
     }
 

@@ -3,7 +3,6 @@
  */
 
 import { UserRole } from '../enum/user-role.enum';
-import { Team } from './team.interface';
 
 export interface User {
   username: string;
