@@ -36,7 +36,6 @@ export class MongoDbProvider {
       this.connection = mongoose.createConnection(
         this.args.dbArgs?.mongoDbUri as string,
         {
-          bufferCommands: false,
           keepAlive: true,
           maxPoolSize: this.args.dbArgs?.mongoDbConnectionLimit
             ? parseInt(this.args.dbArgs?.mongoDbConnectionLimit)
