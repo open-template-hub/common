@@ -24,7 +24,7 @@ export class PostgreSqlProvider {
   /**
    * preloads connection provider
    */
-  preload = async () => {
+  preload = () => {
     // Creating Connection Pool
     this.connectionPool = new Pool( {
       connectionString: this.args.dbArgs?.postgresqlUri,
