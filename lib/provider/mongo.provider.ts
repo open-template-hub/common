@@ -32,7 +32,6 @@ export class MongoDbProvider {
       })
     ).then(() => {
       // create connection pool
-      console.log("Creating MongoDB connection pool");
       this.connection = mongoose.createConnection(
         this.args.dbArgs?.mongoDbUri as string,
         {
@@ -43,6 +42,8 @@ export class MongoDbProvider {
           socketTimeoutMS: 0,
         }
       );
+
+      console.log("MongoDB Connection Pool Created Successfully.");
     });
   };
 
