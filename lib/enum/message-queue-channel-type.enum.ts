@@ -1,4 +1,5 @@
 export enum MessageQueueChannelType {
+  NOT_SET = -1,
   ORCHESTRATION = 0,
   AUTH = 1,
   PAYMENT = 2,
