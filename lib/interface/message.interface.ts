@@ -14,18 +14,18 @@ export interface QueueConsumer {
 }
 
 export class AbstractQueueConsumer {
-  private channel: any;
-  private ctxArgs: ContextArgs = {} as ContextArgs;
-  private ownerChannelType: MessageQueueChannelType =
+  protected channel: any;
+  protected ctxArgs: ContextArgs = {} as ContextArgs;
+  protected ownerChannelType: MessageQueueChannelType =
     MessageQueueChannelType.NOT_SET;
 
-  init = (channel: string, ctxArgs: ContextArgs) => {
+  protected init = (channel: string, ctxArgs: ContextArgs) => {
     this.channel = channel;
     this.ctxArgs = ctxArgs;
     return this;
   };
 
-  private operate = async (
+  protected operate = async (
     msg: any,
     msgObj: any,
     requeue: boolean,
@@ -53,7 +53,7 @@ export class AbstractQueueConsumer {
     }
   };
 
-  private moveToDLQ = async (msg: any, requeue: boolean) => {
+  protected moveToDLQ = async (msg: any, requeue: boolean) => {
     try {
       const orchestrationChannelTag =
         this.ctxArgs.envArgs.mqArgs?.orchestrationServerMessageQueueChannel;
