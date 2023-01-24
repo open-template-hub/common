@@ -34,6 +34,8 @@ export interface DbArgs {
   mongoDbConnectionLimit?: string;
   postgresqlUri?: string;
   postgresqlConnectionLimit?: string;
+  redisUri?: string;
+  redisConnectionLimit?: string;
 }
 
 export interface MqArgs {

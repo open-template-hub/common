@@ -38,6 +38,7 @@ export * from './lib/interface/query-filters.interface';
 export * from './lib/provider/mongo.provider';
 export * from './lib/provider/postgre.provider';
 export * from './lib/provider/message-queue.provider';
+export * from './lib/provider/redis.provider';
 
 // util
 export * from './lib/util/auth.util';
