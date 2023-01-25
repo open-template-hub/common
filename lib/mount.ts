@@ -89,6 +89,9 @@ export function mount(args: MountArgs) {
   function onCloseCleanUp() {
     args.ctxArgs.message_queue_provider?.disconnect();
     console.log('Queue connection cleaned up..');
+
+    args.ctxArgs.redis_provider?.releaseConnection();
+    console.log('Redis connection cleaned up..');
   }
 
   // On Application Close

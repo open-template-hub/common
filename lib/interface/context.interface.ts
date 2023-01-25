@@ -19,6 +19,7 @@ export interface Context {
   token: string;
   message_queue_provider: MessageQueueProvider;
   teams: Team[];
+  redis_provider: RedisProvider;
 }
 
 export interface ContextArgs {
