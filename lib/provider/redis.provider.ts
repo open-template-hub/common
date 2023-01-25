@@ -12,15 +12,21 @@ export class RedisProvider {
         ? parseInt(this.args.dbArgs?.redisConnectionLimit)
         : 1,
     });
-
-    this.connection.connect();
   };
 
   getConnection = () => {
+    if (this.connection.status === 'disconnected') {
+      this.connection.connect();
+    }
+
     return this.connection;
   };
 
   releaseConnection = () => {
-    this.connection.quit();
+    try {
+      this.connection.quit();
+    } catch (e) {
+      console.log('Error while releasing Redis connection: ', e);
+    }
   };
 }
