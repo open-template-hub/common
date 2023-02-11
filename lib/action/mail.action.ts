@@ -41,7 +41,8 @@ export interface AccountVerificationMailActionParams {
 export interface JoinTeamMailActionParams {
   user: string;
   email: string;
-  joinTeamToken: string;
   teamId: string;
   teamName: string;
+  teamLinkName: string;
+  teamRole: string;
 }

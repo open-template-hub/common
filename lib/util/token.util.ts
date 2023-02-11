@@ -20,8 +20,7 @@ export class TokenUtil {
     return jwt.sign(
         {
           username: user.username,
-          role: user.role,
-          teams: user.teams
+          role: user.role
         },
         this.args.tokenArgs?.accessTokenSecret || '',
         {
@@ -53,8 +52,7 @@ export class TokenUtil {
     const token = jwt.sign(
         {
           username: user.username,
-          role: user.role,
-          teams: user.teams
+          role: user.role
         },
         this.args.tokenArgs?.refreshTokenSecret || '',
         {
@@ -207,73 +205,4 @@ export class TokenUtil {
         }
     );
   };
-
-  verifyTeamToken = ( token: string ) => {
-    try {
-      return jwt.verify(
-          token,
-          this.args.tokenArgs?.joinTeamTokenSecret ?? ''
-      );
-    } catch ( e ) {
-      const error = e as any;
-      console.error( error );
-      if ( error.name === 'JsonWebTokenError' ) {
-        error.responseCode = ResponseCode.FORBIDDEN;
-      } else if ( error.name === 'TokenExpiredError' ) {
-        error.responseCode = ResponseCode.UNAUTHORIZED;
-      }
-      throw e;
-    }
-  };
-
-  addTeamToToken( currentToken: string, team: any ) {
-    try {
-      const token = jwt.decode( currentToken ) as any;
-
-      let tokenTeamArray = [];
-      if ( token.teams ) {
-        tokenTeamArray = token.teams;
-      }
-      tokenTeamArray.push( team );
-
-      const accessTokenWithTeam = jwt.sign(
-          {
-            username: token.username,
-            role: token.role,
-            teams: tokenTeamArray
-          },
-          this.args.tokenArgs?.accessTokenSecret || '',
-          {
-            expiresIn: token.exp
-          }
-      );
-
-      const refreshTokenWithTeam = jwt.sign(
-          {
-            username: token.username,
-            role: token.role,
-            teams: tokenTeamArray
-          },
-          this.args.tokenArgs?.refreshTokenSecret || '',
-          {
-            expiresIn:
-                this.args.tokenArgs?.refreshTokenExpire ||
-                TokenDefaults.expire.refreshToken,
-          }
-      );
-
-      return { accessTokenWithTeam, refreshTokenWithTeam };
-
-
-    } catch ( e ) {
-      const error = e as any;
-      console.error( error );
-      if ( error.name === 'JsonWebTokenError' ) {
-        error.responseCode = ResponseCode.FORBIDDEN;
-      } else if ( error.name === 'TokenExpiredError' ) {
-        error.responseCode = ResponseCode.UNAUTHORIZED;
-      }
-      throw e;
-    }
-  }
 }
