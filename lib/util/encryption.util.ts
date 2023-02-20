@@ -37,13 +37,28 @@ export class EncryptionUtil {
    * @param obj Object
    */
   encryptObj = (obj: any) => {
+    var objStr = JSON.stringify(obj);
+
     let encrypted = CryptoJS.RC4.encrypt(
-      obj,
+      objStr,
       this.args.tokenArgs?.responseEncryptionSecret as string
     );
-    const encryptedJson = JSON.stringify(encrypted);
 
-    return encryptedJson;
+    return encrypted.toString();
+  };
+
+  /**
+   * decrypts object
+   * @param encryptedObj Encrypted Object String
+   */
+  decryptObj = (encryptedObj: string) => {
+    let decrypted = CryptoJS.RC4.decrypt(
+      encryptedObj,
+      this.args.tokenArgs?.responseEncryptionSecret as string
+    );
+
+    var decryptedObj = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
+    return decryptedObj;
   };
 
   /**
