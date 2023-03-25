@@ -27,16 +27,22 @@ export class ErrorHandlerUtil {
 
     // Overwrite Response Code and Message here
     if ( exception.response ) {
-      let decrypted_data = new EncryptionUtil( this.args ).decrypt(
-          exception.response.data
-      );
-
-      if ( decrypted_data?.message ) {
-        response.message = decrypted_data.message;
-      }
-
       if ( exception.response.status ) {
         response.code = exception.response.status;
+      }
+
+      if ( exception.response.status !== ResponseCode.INTERNAL_SERVER_ERROR ) {
+        try {
+          let decrypted_data = new EncryptionUtil( this.args ).decrypt(
+              exception.response.data
+          );
+
+          if ( decrypted_data?.message ) {
+            response.message = decrypted_data.message;
+          }
+        } catch ( error ) {
+          console.error( error );
+        }
       }
     } else {
       if ( exception.responseCode ) {
