@@ -141,8 +141,13 @@ export function mount(args: MountArgs) {
   }
 
   // Use for error handling
-  args.app.use(function (err: Error, _req: Request, res: Response) {
+  args.app.use(function (
+    err: Error,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     let error = errorHandlerUtil.handle(err);
-    res.status(error.code).json({ message: error.message });
+    res.status(error.code).send({ message: error.message });
   });
 }
