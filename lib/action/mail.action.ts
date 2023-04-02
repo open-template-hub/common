@@ -3,13 +3,16 @@ export type MailActionType = {
     contactUs: {
       params: ContactUsMailActionParams;
     };
+    waitlist: {
+      params: WaitlistMailActionParams;
+    };
     forgetPassword: {
       params: ForgetPasswordMailActionParams;
     };
     verifyAccount: {
       params: AccountVerificationMailActionParams;
     };
-  },
+  };
   language?: string;
 };
 
@@ -22,6 +25,17 @@ export interface ContactUsMailActionParams {
   companySize?: string;
   country?: string;
   message: string;
+}
+
+export interface WaitlistMailActionParams {
+  createdOn?: number;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  website?: string;
+  companySize?: string;
+  country?: string;
 }
 
 export interface ForgetPasswordMailActionParams {
